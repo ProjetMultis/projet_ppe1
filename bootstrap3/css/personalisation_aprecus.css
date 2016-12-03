@@ -1,0 +1,94 @@
+.marge-bas
+{
+    margin-bottom: 30px;
+}
+.caption {
+    height: 130px;
+    overflow: hidden;
+}
+
+.caption h4 {
+    white-space: nowrap;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+
+.ratings {
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #d17581;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+footer {
+    margin: 50px 0;
+}
+.carousel-control,
+.item {
+    border-radius: 4px;
+}
+
+.slide-image {
+    width: 100%;
+}
+
+body {
+    padding-top: 0;
+    background-color: #FEFDFD;/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+.carousel{
+    background: #2f4357;
+    margin-top: 20px;
+}
+.carousel .item img{
+    margin: 0 auto; /* Align slide image horizontally center */
+}
+.bs-example{
+    margin: 20px;
+}
+.active
+{
+    background-color: #1b6d85;
+}
+/*Logo*/
+.navbar-brand {
+    padding: 0px; /* firefox bug fix */
+}
+.navbar-brand>img {
+    height: 100%;
+    padding: 15px; /* firefox bug fix */
+    width: auto;
+}
+.navbar-primary
+{
+    background-color: #57ad68;;
+    border: none;
+    margin-bottom: 0;
+    min-height: 6px;
+    z-index: 100;
+
+}
+.navabar-vert
+{
+    background: #367a31;
+    border: none;
+    margin-bottom: 0;
+    min-height: 64px;
+    z-index: 100;
+}
+/*.signelogo  {color:#fff; background:#e95850; font-weight: 700; padding: 5px 12px; }*/
+
+i
+{
+    padding-top: 40px;
+}

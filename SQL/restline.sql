@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Jeu 17 Novembre 2016 à 17:08
+-- Généré le :  Lun 05 Décembre 2016 à 14:33
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.19
 
@@ -34,6 +34,33 @@ CREATE TABLE `accepter` (
 -- --------------------------------------------------------
 
 --
+-- Doublure de structure pour la vue `affichagerestaurant`
+--
+CREATE TABLE `affichagerestaurant` (
+`idResto` int(10)
+,`nomResto` varchar(30)
+,`nomVille` varchar(50)
+,`nomRegion` varchar(50)
+,`libelle` varchar(50)
+,`imageResto` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Doublure de structure pour la vue `affichageunrestaurant`
+--
+CREATE TABLE `affichageunrestaurant` (
+`nomResto` varchar(30)
+,`nomVille` varchar(50)
+,`nomRegion` varchar(50)
+,`libelle` varchar(50)
+,`imageResto` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `client`
 --
 
@@ -50,7 +77,7 @@ CREATE TABLE `client` (
 --
 
 INSERT INTO `client` (`idClient`, `nomClient`, `emailClient`, `adresseClient`, `numTelClient`) VALUES
-(1, 'feride', 'feride@hotmail.fr', '30 rue des cerisier', 130254678);
+(3, 'Feride', 'joris@gmail.com', '5 rue de la pegre', 678953212);
 
 -- --------------------------------------------------------
 
@@ -100,6 +127,25 @@ CREATE TABLE `effectuer` (
 -- --------------------------------------------------------
 
 --
+-- Doublure de structure pour la vue `formatunrestaurant`
+--
+CREATE TABLE `formatunrestaurant` (
+`idResto` int(10)
+,`nomResto` varchar(30)
+,`nbTables` int(5)
+,`nbCouverts` int(5)
+,`telResto` int(10)
+,`heureOuv` time
+,`heureFer` time
+,`ferExceptionnelle` varchar(100)
+,`imageResto` varchar(50)
+,`libelle` varchar(50)
+,`catPrix` varchar(30)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `menu`
 --
 
@@ -141,11 +187,31 @@ CREATE TABLE `particulier` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `particulier`
+-- Déclencheurs `particulier`
 --
+DELIMITER $$
+CREATE TRIGGER `Professionnel` BEFORE INSERT ON `particulier` FOR EACH ROW begin
+  declare nbc, nbe int;
+  select count(*) into nbc
+  from client
+  where idClient = new.idClient;
 
-INSERT INTO `particulier` (`prenom`, `nomClient`, `emailClient`, `adresseClient`, `numTelClient`, `idClient`) VALUES
-('mery', 'feride', 'feride@hotmail.fr', '30 rue des cerisier', 130254678, 1);
+    if nbc = 0
+      then
+        insert into client values(new.idClient, new.nomClient, new.emailClient, new.adresseClient, new.numTelClient);
+    END if;
+    select count(*) into nbe
+    from Professionnel
+    where idClient = new.idClient;
+
+    if nbe > 0
+      then
+        SIGNAL SQLSTATE'45000'
+        set message_text = 'il est profesionnel';
+    END if;
+    END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -188,7 +254,34 @@ CREATE TABLE `professionnel` (
 --
 
 INSERT INTO `professionnel` (`numSiret`, `nomContact`, `prenomContact`, `nomClient`, `emailClient`, `adresseClient`, `numTelClient`, `idClient`) VALUES
-('732 829 320 00074', 'rudy', 'mouloud', 'feride', 'feride@hotmail.fr', '30 rue des cerisier', 130254678, 1);
+('3', 'juppe', 'joris', 'Feride', 'joris@gmail.com', '5 rue de la pegre', 678953212, 3);
+
+--
+-- Déclencheurs `professionnel`
+--
+DELIMITER $$
+CREATE TRIGGER `Particulier` BEFORE INSERT ON `professionnel` FOR EACH ROW begin
+    declare nbc, nbe int;
+    select count(*) into nbc
+    from client
+    where idClient = new.idClient;
+
+      if nbc = 0
+        then
+          insert into client values(new.idClient, new.nomClient, new.emailClient, new.adresseClient, new.numTelClient);
+      END if;
+      select count(*) into nbe
+      from Particulier
+      where idClient = new.idClient;
+
+      if nbe > 0
+        then
+          SIGNAL SQLSTATE'45000'
+          set message_text = 'il est particulier';
+      END if;
+      END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -206,36 +299,31 @@ CREATE TABLE `region` (
 --
 
 INSERT INTO `region` (`idRegion`, `nomRegion`) VALUES
-(8, NULL),
-(7, NULL),
-(6, NULL),
-(5, NULL),
-(9, NULL),
-(10, 'Ile de France'),
-(11, 'PACA'),
-(12, 'Bretagne'),
-(13, 'Normandie'),
-(14, 'Hauts-de-France'),
-(15, 'Occitanie'),
-(16, 'Nouvelle-Aquitaine'),
-(17, 'Grand-Est'),
-(18, 'Pays de la Loire'),
-(19, 'Centre-Val de Loire'),
-(20, 'Bourgogne-Franche-Comté'),
-(21, 'Auvergne-Rhône-Alpes'),
-(22, 'Corse'),
-(23, 'Ile de France'),
-(24, 'PACA'),
-(25, 'Bretagne'),
-(26, 'Normandie'),
-(27, 'Hauts-de-France'),
-(28, 'Occitanie'),
-(29, 'Nouvelle-Aquitaine'),
-(30, 'Grand-Est'),
-(31, 'Pays de la Loire'),
-(32, 'Centre-Val de Loire'),
-(33, 'Bourgogne-Franche-Comté'),
-(34, 'Auvergne-Rhône-Alpes'),
+(1, 'Ile de France'),
+(2, 'PACA'),
+(3, 'Bretagne'),
+(4, 'Normandie'),
+(5, 'Hauts-de-France'),
+(6, 'Occitanie'),
+(7, 'Nouvelle-Aquitaine'),
+(8, 'Grand-Est'),
+(9, 'Pays de la Loire'),
+(10, 'Centre-Val de Loire'),
+(11, 'Bourgogne-Franche-Comté'),
+(12, 'Auvergne-Rhône-Alpes'),
+(13, 'Corse'),
+(14, 'Ile de France'),
+(15, 'PACA'),
+(16, 'Bretagne'),
+(17, 'Normandie'),
+(18, 'Hauts-de-France'),
+(19, 'Occitanie'),
+(20, 'Nouvelle-Aquitaine'),
+(21, 'Grand-Est'),
+(22, 'Pays de la Loire'),
+(23, 'Centre-Val de Loire'),
+(24, 'Bourgogne-Franche-Comté'),
+(25, 'Auvergne-Rhône-Alpes'),
 (35, 'Corse');
 
 -- --------------------------------------------------------
@@ -275,7 +363,7 @@ CREATE TABLE `restaurant` (
   `heureOuv` time DEFAULT NULL,
   `heureFer` time DEFAULT NULL,
   `ferExceptionnelle` varchar(100) DEFAULT NULL,
-  `imageResto` varchar(30) DEFAULT NULL,
+  `imageResto` varchar(50) DEFAULT NULL,
   `idTypeResto` int(20) NOT NULL,
   `cpVille` int(5) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -285,14 +373,15 @@ CREATE TABLE `restaurant` (
 --
 
 INSERT INTO `restaurant` (`idResto`, `nomResto`, `nbTables`, `nbCouverts`, `telResto`, `heureOuv`, `heureFer`, `ferExceptionnelle`, `imageResto`, `idTypeResto`, `cpVille`) VALUES
-(1, 'Amere', 15, 8, 120454678, '09:00:00', '22:00:00', NULL, NULL, 1, 1),
-(2, 'Fulgurance', 10, 8, 145802316, '08:00:00', '22:00:00', NULL, NULL, 2, 2),
-(3, 'Les Arlots', 12, 10, 479234556, '08:00:00', '22:00:00', NULL, NULL, 3, 3),
-(4, 'Onoto', 11, 12, 101520302, '08:00:00', '22:00:00', NULL, NULL, 4, 4),
-(5, 'La cave de l os moelle', 20, 6, 245788963, '10:00:00', '23:00:00', NULL, NULL, 5, 5),
-(6, 'Les marches', 19, 8, 325687945, '10:00:00', '23:00:00', NULL, NULL, 6, 6),
-(7, 'Le Bon saint pourcain', 18, 14, 456789632, '10:00:00', '23:00:00', NULL, NULL, 7, 7),
-(8, 'Le baratin', 25, 14, 123456789, '08:00:00', '23:00:00', NULL, NULL, 8, 8);
+(1, 'Amere', 15, 8, 120454678, '09:00:00', '22:00:00', NULL, 'image/amere.jpg', 2, 75001),
+(2, 'Fulgurance', 10, 8, 145802316, '08:00:00', '22:00:00', NULL, 'image/Fulgurance.jpg', 2, 93200),
+(3, 'Les Arlots', 12, 10, 479234556, '08:00:00', '22:00:00', NULL, 'image/les_arlots.jpg', 3, 45530),
+(4, 'Onoto', 11, 12, 101520302, '08:00:00', '22:00:00', NULL, 'image/Onoto.jpg', 4, 94400),
+(5, 'La cave de l os moelle', 20, 6, 245788963, '10:00:00', '23:00:00', NULL, 'image/la_cave_a_los_m.JPG', 3, 92600),
+(6, 'Les marches', 19, 8, 325687945, '10:00:00', '23:00:00', NULL, 'image/les_marches.jpg', 4, 29200),
+(7, 'Le Bon saint pourcain', 18, 14, 456789632, '10:00:00', '23:00:00', NULL, 'image/le_bon_saint_pourcains.jpg', 4, 92100),
+(8, 'Le baratin', 25, 14, 123456789, '08:00:00', '23:00:00', NULL, 'image/le_baratin.jpg', 4, 92200),
+(9, 'la fourchette', 22, 6, 145789663, '08:00:00', '22:00:00', NULL, 'image/la_fourchette.jpg', 2, 75001);
 
 -- --------------------------------------------------------
 
@@ -344,7 +433,7 @@ INSERT INTO `typeresto` (`idTypeResto`, `libelle`, `catPrix`, `nbEtoiles`) VALUE
 --
 
 CREATE TABLE `ville` (
-  `cpVille` char(5) NOT NULL,
+  `cpVille` int(5) NOT NULL,
   `nomVille` varchar(50) DEFAULT NULL,
   `idRegion` int(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -354,26 +443,53 @@ CREATE TABLE `ville` (
 --
 
 INSERT INTO `ville` (`cpVille`, `nomVille`, `idRegion`) VALUES
-('75001', 'Paris', 1),
-('93200', 'Saint-Denis', 2),
-('45530', 'Vitry au Loges', 3),
-('94400', 'Vitry-sur-', 4),
-('92600', 'Asnieres-sur-Seine', 5),
-('92100', 'Boulogne-Billancourt', 6),
-('92200', 'Neuilly-sur-Seine', 7),
-('13001', 'Marseille', 8),
-('29200', 'Brest', 9),
-('66100', 'Perpignan', 10),
-('59000', 'Lille', 11),
-('67000', 'Strasbourg', 12),
-('69001', 'Lyon', 13),
-('33000', 'Bordeaux', 14),
-('63000', 'Clermont-Ferrand', 15),
-('14000', 'Caen', 16),
-('21000', 'Dijon', 17),
-('95330', 'Domont', 18),
-('91000', 'Evry', 19),
-('74400', 'Chamonix Mont Blanc', 20);
+(75001, 'Paris', 1),
+(93200, 'Saint-Denis', 1),
+(45530, 'Vitry au Loges', 3),
+(94400, 'Vitry-sur-', 4),
+(92600, 'Asnieres-sur-Seine', 5),
+(92100, 'Boulogne-Billancourt', 6),
+(92200, 'Neuilly-sur-Seine', 7),
+(13001, 'Marseille', 8),
+(29200, 'Brest', 9),
+(66100, 'Perpignan', 10),
+(59000, 'Lille', 11),
+(67000, 'Strasbourg', 12),
+(69001, 'Lyon', 13),
+(33000, 'Bordeaux', 14),
+(63000, 'Clermont-Ferrand', 15),
+(14000, 'Caen', 16),
+(21000, 'Dijon', 17),
+(95330, 'Domont', 18),
+(91000, 'Evry', 19),
+(74400, 'Chamonix Mont Blanc', 20);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `affichagerestaurant`
+--
+DROP TABLE IF EXISTS `affichagerestaurant`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `affichagerestaurant`  AS  (select `r`.`idResto` AS `idResto`,`r`.`nomResto` AS `nomResto`,`v`.`nomVille` AS `nomVille`,`re`.`nomRegion` AS `nomRegion`,`tr`.`libelle` AS `libelle`,`r`.`imageResto` AS `imageResto` from (((`ville` `v` join `region` `re`) join `typeresto` `tr`) join `restaurant` `r`) where ((`tr`.`idTypeResto` = `r`.`idTypeResto`) and (`r`.`cpVille` = `v`.`cpVille`) and (`v`.`idRegion` = `re`.`idRegion`)) order by `r`.`nomResto`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `affichageunrestaurant`
+--
+DROP TABLE IF EXISTS `affichageunrestaurant`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `affichageunrestaurant`  AS  (select `r`.`nomResto` AS `nomResto`,`v`.`nomVille` AS `nomVille`,`re`.`nomRegion` AS `nomRegion`,`tr`.`libelle` AS `libelle`,`r`.`imageResto` AS `imageResto` from (((`ville` `v` join `region` `re`) join `typeresto` `tr`) join `restaurant` `r`) where ((`tr`.`idTypeResto` = `r`.`idTypeResto`) and (`r`.`cpVille` = `v`.`cpVille`) and (`v`.`idRegion` = `re`.`idRegion`) and (`tr`.`nbEtoiles` = 5)) order by `r`.`nomResto`) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `formatunrestaurant`
+--
+DROP TABLE IF EXISTS `formatunrestaurant`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `formatunrestaurant`  AS  (select `r`.`idResto` AS `idResto`,`r`.`nomResto` AS `nomResto`,`r`.`nbTables` AS `nbTables`,`r`.`nbCouverts` AS `nbCouverts`,`r`.`telResto` AS `telResto`,`r`.`heureOuv` AS `heureOuv`,`r`.`heureFer` AS `heureFer`,`r`.`ferExceptionnelle` AS `ferExceptionnelle`,`r`.`imageResto` AS `imageResto`,`tr`.`libelle` AS `libelle`,`tr`.`catPrix` AS `catPrix` from (`typeresto` `tr` join `restaurant` `r`) where (`tr`.`idTypeResto` = `r`.`idTypeResto`)) ;
 
 --
 -- Index pour les tables exportées
@@ -417,12 +533,6 @@ ALTER TABLE `menu`
   ADD PRIMARY KEY (`idMenu`);
 
 --
--- Index pour la table `particulier`
---
-ALTER TABLE `particulier`
-  ADD PRIMARY KEY (`idClient`);
-
---
 -- Index pour la table `periode`
 --
 ALTER TABLE `periode`
@@ -447,14 +557,6 @@ ALTER TABLE `reservation`
   ADD PRIMARY KEY (`idReservation`),
   ADD KEY `idResto` (`idResto`),
   ADD KEY `idClient` (`idClient`);
-
---
--- Index pour la table `restaurant`
---
-ALTER TABLE `restaurant`
-  ADD PRIMARY KEY (`idResto`),
-  ADD KEY `idTypeResto` (`idTypeResto`),
-  ADD KEY `cpVille` (`cpVille`);
 
 --
 -- Index pour la table `typepaiement`
@@ -483,7 +585,7 @@ ALTER TABLE `ville`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `commentaires`
 --
@@ -509,11 +611,6 @@ ALTER TABLE `region`
 --
 ALTER TABLE `reservation`
   MODIFY `idReservation` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `restaurant`
---
-ALTER TABLE `restaurant`
-  MODIFY `idResto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `typepaiement`
 --

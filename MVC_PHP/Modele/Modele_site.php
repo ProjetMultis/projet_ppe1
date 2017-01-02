@@ -127,5 +127,33 @@
     $delete = $this->pdo->prepare($requete);
     $delete ->execute($donnees);
   }
+
+  public function encrypt($chaine, $key="", $urlvalid=true) //methode pour encrypter une valeur
+  {
+
+    if ($urlvalid)
+    {
+      $ret = strtr($ret,
+      array(
+            '+' => '.',
+            '=' => '-',
+            '/' => '~'));
+    }
+
+   return $ret;
+  }
+
+  public function decrypt($chaine, $key="") //methode pour decrypter une valeur
+  {
+    $chaine = strtr(
+    $chaine,
+    array(
+          '.' => '+',
+          '-' => '=',
+          '~' => '/'));
+   return $chaine;
+  }
+
+
 }
 ?>

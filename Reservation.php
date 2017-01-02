@@ -17,7 +17,7 @@
 
 </head>
 <body>
-
+<div class="page">
 <div class="container"><!-- au dessus du menu -->
     <div class=" navbar-left inline-form"> <!--�l�ment � gauche--> <a class="logo_wrapper" href="#"><span class="logo"><img src="image/Logo-Restline.png" width="300" height="150"></span></a></div>
     <div class="navbar-right inline-form">
@@ -70,6 +70,6 @@
 </footer>
 
 
-
+</div>
 </body>
 </html>

@@ -11,6 +11,7 @@ html {
 }
 body {
   margin: 0;
+  
 }
 article,
 aside,
@@ -1087,6 +1088,7 @@ body {
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
+
 }
 input,
 button,
@@ -1123,6 +1125,8 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  overflow: auto;
+
 }
 .img-rounded {
   border-radius: 6px;
@@ -1604,7 +1608,7 @@ pre code {
 }
 .container-fluid {
   padding-right: 15px;
-  padding-left: 10%;
+  padding-left: 2%;
   margin-right: auto;
   margin-left: auto;
 }
@@ -4813,6 +4817,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   text-align: center;
   list-style: none;
 }
+
 .pager li {
   display: inline;
 }
@@ -6757,3 +6762,15 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+/*texte*/
+#txt
+{
+  text-align: center;
+}
+.page
+{
+  margin: 0 auto;
+  background: #FFF;
+  width: 1200px;
+  box-shadow: 0 0 12px #999;
+}

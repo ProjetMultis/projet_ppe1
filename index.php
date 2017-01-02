@@ -18,6 +18,7 @@
 </head>
 
 <body>
+  <div class="page">
 <div class="container"><!-- au dessus du menu -->
     <div class=" navbar-left inline-form"> <!--�l�ment � gauche--> <a class="logo_wrapper" href="#"><span class="logo"><img src="image/Logo-Restline.png" width="300" height="150"></span></a></div>
     <div class="navbar-right inline-form">
@@ -25,7 +26,6 @@
             <a href="https://fr.linkedin.com/" ><i class="fa fa-linkedin-square fa-3x" href="#"></i></a>
             <a href="http://facebook.com" ><i class="fa fa-facebook-square fa-3x"></i></a>
             <a href="https://twitter.com/" ><i class="fa fa-twitter-square fa-3x"></i></a>
-
         </p>
     </div>
 </div>
@@ -80,21 +80,21 @@
                 <!-- Image pour le slider -->
                 <div class="carousel-inner">
                     <div class="active item">
-                        <img src="image/Restaurant_un.jpg" alt="...">
+                        <img src="image/la_fourchette2.jpg" alt="...">
                         <div class="carousel-caption">
-                            <h3>Caption Text</h3>
+                            <h3>Restaurant la Fourchette</h3>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="image/Restaurant_3.png" alt="...">
+                        <img src="image/les_marches2.jpg" alt="...">
                         <div class="carousel-caption">
-                            <h3>Caption Text</h3>
+                            <h3>Restaurant les marches</h3>
                         </div>
                     </div>
                     <div class="item">
-                        <img src="image/Restaurant_deux.jpg" alt="...">
+                        <img src="image/Onoto2.jpg" alt="...">
                         <div class="carousel-caption">
-                            <h3>Caption Text</h3>
+                            <h3>Restaurant Onoto</h3>
                         </div>
                     </div>
                 </div>
@@ -111,13 +111,14 @@
             </div>
             </div>
             </div>
+          </div>
 
 
 
         <!-- Article -->
         <div class="container-fluid">
         <div class="row">
-        <h1> ---- Affichage Top Restaurant ---- </h1>
+        <h1> __________________ Affichage Top Restaurant _________________ </h1>
       <br />
         <?php
         include("MVC_PHP/Controleur/Controleur_site.php");
@@ -151,7 +152,7 @@
 
         </div>
 
-
+</diV>
 <script src="bootstrap3/js/bootstrap.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 05 Décembre 2016 à 14:33
+-- Généré le :  Ven 30 Décembre 2016 à 14:48
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.19
 
@@ -30,6 +30,20 @@ CREATE TABLE `accepter` (
   `idPaiement` int(10) NOT NULL,
   `idResto` int(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Doublure de structure pour la vue `affichagemenu`
+--
+CREATE TABLE `affichagemenu` (
+`idResto` int(10)
+,`nomResto` varchar(30)
+,`imageResto` varchar(50)
+,`nomMenu` char(100)
+,`prixMenu` decimal(10,2)
+,`ingredientsMenu` varchar(400)
+);
 
 -- --------------------------------------------------------
 
@@ -68,16 +82,17 @@ CREATE TABLE `client` (
   `idClient` int(10) NOT NULL,
   `nomClient` varchar(30) DEFAULT NULL,
   `emailClient` varchar(40) DEFAULT NULL,
-  `adresseClient` varchar(100) DEFAULT NULL,
-  `numTelClient` int(10) DEFAULT NULL
+  `numTelClient` int(10) DEFAULT NULL,
+  `cp` int(5) DEFAULT NULL,
+  `rue` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `client`
 --
 
-INSERT INTO `client` (`idClient`, `nomClient`, `emailClient`, `adresseClient`, `numTelClient`) VALUES
-(3, 'Feride', 'joris@gmail.com', '5 rue de la pegre', 678953212);
+INSERT INTO `client` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `cp`, `rue`) VALUES
+(1, 'titi', 'toto@gmail.com', 647895612, 78180, '30 rue des blaireaux');
 
 -- --------------------------------------------------------
 
@@ -124,6 +139,22 @@ CREATE TABLE `effectuer` (
   `idMenu` int(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `effectuer`
+--
+
+INSERT INTO `effectuer` (`idResto`, `idMenu`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -162,14 +193,14 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`idMenu`, `nomMenu`, `prixMenu`, `ingredientsMenu`) VALUES
 (1, 'Poulet de Bresse aux gousses d ail et foie gras', '120.00', 'Poulet ail foie gras sauce magique'),
-(2, 'langoustines soufflées chez Le Duc', '60.00', 'Langoustines, sauce pimenté'),
-(3, 'Foie de veau de Corrèze cuit épais', '40.00', 'Foie de veau, sauce citron'),
-(4, 'Soufflé au chocolat', '8.00', 'Chocolat'),
-(5, 'Tarte aux fraises', '19.00', 'Fraise, pâtes'),
+(2, 'Langoustines soufflees chez Le Duc', '60.00', 'Langoustines, sauce pimente'),
+(3, 'Foie de veau de Correze cuit epais', '40.00', 'Foie de veau, sauce citron'),
+(4, 'Souffle au chocolat', '8.00', 'Chocolat'),
+(5, 'Tarte aux fraises', '19.00', 'Fraise, pates'),
 (6, 'Clafoutis aux fruits de saison', '13.00', 'Clafoutis, orange, fraises, framboises'),
-(7, 'Tarte tatin', '13.00', 'Crème fraiche, tarte tatin'),
-(8, 'Paris-Brest', '9.00', 'Crème, lait'),
-(9, 'Jambon blanc, truffe, spaghetti au parmesan', '89.00', 'Jambon de paris, truffe, spaghetti, pâtes, parmesan');
+(7, 'Tarte tatin', '13.00', 'Creme fraiche, tarte tatin'),
+(8, 'Paris-Brest', '9.00', 'Creme, lait'),
+(9, 'Jambon blanc, truffe, spaghetti au parmesan', '89.00', 'Jambon de paris, truffe, spaghetti, pates, parmesan');
 
 -- --------------------------------------------------------
 
@@ -179,12 +210,20 @@ INSERT INTO `menu` (`idMenu`, `nomMenu`, `prixMenu`, `ingredientsMenu`) VALUES
 
 CREATE TABLE `particulier` (
   `idClient` int(10) NOT NULL,
-  `prenom` varchar(30) DEFAULT NULL,
   `nomClient` varchar(30) DEFAULT NULL,
   `emailClient` varchar(40) DEFAULT NULL,
-  `adresseClient` varchar(100) DEFAULT NULL,
-  `numTelClient` int(10) DEFAULT NULL
+  `numTelClient` int(10) DEFAULT NULL,
+  `cp` int(5) DEFAULT NULL,
+  `rue` varchar(50) DEFAULT NULL,
+  `prenom` varchar(30) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `particulier`
+--
+
+INSERT INTO `particulier` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `cp`, `rue`, `prenom`) VALUES
+(1, 'titi', 'toto@gmail.com', 647895612, 78180, '30 rue des blaireaux', 'toto');
 
 --
 -- Déclencheurs `particulier`
@@ -198,7 +237,7 @@ CREATE TRIGGER `Professionnel` BEFORE INSERT ON `particulier` FOR EACH ROW begin
 
     if nbc = 0
       then
-        insert into client values(new.idClient, new.nomClient, new.emailClient, new.adresseClient, new.numTelClient);
+        insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue);
     END if;
     select count(*) into nbe
     from Professionnel
@@ -239,22 +278,16 @@ INSERT INTO `periode` (`numSemaine`, `dateDebut`, `dateFin`) VALUES
 --
 
 CREATE TABLE `professionnel` (
-  `numSiret` varchar(35) DEFAULT NULL,
-  `nomContact` varchar(20) DEFAULT NULL,
-  `prenomContact` varchar(20) DEFAULT NULL,
+  `idClient` int(10) NOT NULL,
   `nomClient` varchar(30) DEFAULT NULL,
   `emailClient` varchar(40) DEFAULT NULL,
-  `adresseClient` varchar(100) DEFAULT NULL,
   `numTelClient` int(10) DEFAULT NULL,
-  `idClient` int(10) NOT NULL
+  `cp` int(5) DEFAULT NULL,
+  `rue` varchar(50) DEFAULT NULL,
+  `numSiret` varchar(35) DEFAULT NULL,
+  `nomContact` varchar(20) DEFAULT NULL,
+  `prenomContact` varchar(20) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `professionnel`
---
-
-INSERT INTO `professionnel` (`numSiret`, `nomContact`, `prenomContact`, `nomClient`, `emailClient`, `adresseClient`, `numTelClient`, `idClient`) VALUES
-('3', 'juppe', 'joris', 'Feride', 'joris@gmail.com', '5 rue de la pegre', 678953212, 3);
 
 --
 -- Déclencheurs `professionnel`
@@ -268,7 +301,7 @@ CREATE TRIGGER `Particulier` BEFORE INSERT ON `professionnel` FOR EACH ROW begin
 
       if nbc = 0
         then
-          insert into client values(new.idClient, new.nomClient, new.emailClient, new.adresseClient, new.numTelClient);
+          insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue);
       END if;
       select count(*) into nbe
       from Particulier
@@ -386,6 +419,44 @@ INSERT INTO `restaurant` (`idResto`, `nomResto`, `nbTables`, `nbCouverts`, `telR
 -- --------------------------------------------------------
 
 --
+-- Doublure de structure pour la vue `selectcontacteparticulier`
+--
+CREATE TABLE `selectcontacteparticulier` (
+`idClient` int(10)
+,`nomClient` varchar(30)
+,`emailClient` varchar(40)
+,`numTelClient` int(10)
+,`cp` int(5)
+,`rue` varchar(50)
+,`prenom` varchar(30)
+,`auteurCom` varchar(50)
+,`sujetCom` varchar(50)
+,`texteCom` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Doublure de structure pour la vue `selectcontacteprofessionnel`
+--
+CREATE TABLE `selectcontacteprofessionnel` (
+`idClient` int(10)
+,`nomClient` varchar(30)
+,`emailClient` varchar(40)
+,`numTelClient` int(10)
+,`cp` int(5)
+,`rue` varchar(50)
+,`numSiret` varchar(35)
+,`nomContact` varchar(20)
+,`prenomContact` varchar(20)
+,`auteurCom` varchar(50)
+,`sujetCom` varchar(50)
+,`texteCom` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `typepaiement`
 --
 
@@ -467,6 +538,15 @@ INSERT INTO `ville` (`cpVille`, `nomVille`, `idRegion`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la vue `affichagemenu`
+--
+DROP TABLE IF EXISTS `affichagemenu`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `affichagemenu`  AS  (select `r`.`idResto` AS `idResto`,`r`.`nomResto` AS `nomResto`,`r`.`imageResto` AS `imageResto`,`m`.`nomMenu` AS `nomMenu`,`m`.`prixMenu` AS `prixMenu`,`m`.`ingredientsMenu` AS `ingredientsMenu` from ((`restaurant` `r` join `effectuer` `e`) join `menu` `m`) where ((`r`.`idResto` = `e`.`idResto`) and (`e`.`idMenu` = `m`.`idMenu`))) ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la vue `affichagerestaurant`
 --
 DROP TABLE IF EXISTS `affichagerestaurant`;
@@ -490,6 +570,24 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `formatunrestaurant`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `formatunrestaurant`  AS  (select `r`.`idResto` AS `idResto`,`r`.`nomResto` AS `nomResto`,`r`.`nbTables` AS `nbTables`,`r`.`nbCouverts` AS `nbCouverts`,`r`.`telResto` AS `telResto`,`r`.`heureOuv` AS `heureOuv`,`r`.`heureFer` AS `heureFer`,`r`.`ferExceptionnelle` AS `ferExceptionnelle`,`r`.`imageResto` AS `imageResto`,`tr`.`libelle` AS `libelle`,`tr`.`catPrix` AS `catPrix` from (`typeresto` `tr` join `restaurant` `r`) where (`tr`.`idTypeResto` = `r`.`idTypeResto`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `selectcontacteparticulier`
+--
+DROP TABLE IF EXISTS `selectcontacteparticulier`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `selectcontacteparticulier`  AS  (select `par`.`idClient` AS `idClient`,`par`.`nomClient` AS `nomClient`,`par`.`emailClient` AS `emailClient`,`par`.`numTelClient` AS `numTelClient`,`par`.`cp` AS `cp`,`par`.`rue` AS `rue`,`par`.`prenom` AS `prenom`,`c`.`auteurCom` AS `auteurCom`,`c`.`sujetCom` AS `sujetCom`,`c`.`texteCom` AS `texteCom` from (`commentaires` `c` join `particulier` `par`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `selectcontacteprofessionnel`
+--
+DROP TABLE IF EXISTS `selectcontacteprofessionnel`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `selectcontacteprofessionnel`  AS  (select `pro`.`idClient` AS `idClient`,`pro`.`nomClient` AS `nomClient`,`pro`.`emailClient` AS `emailClient`,`pro`.`numTelClient` AS `numTelClient`,`pro`.`cp` AS `cp`,`pro`.`rue` AS `rue`,`pro`.`numSiret` AS `numSiret`,`pro`.`nomContact` AS `nomContact`,`pro`.`prenomContact` AS `prenomContact`,`c`.`auteurCom` AS `auteurCom`,`c`.`sujetCom` AS `sujetCom`,`c`.`texteCom` AS `texteCom` from (`commentaires` `c` join `professionnel` `pro`)) ;
 
 --
 -- Index pour les tables exportées
@@ -537,12 +635,6 @@ ALTER TABLE `menu`
 --
 ALTER TABLE `periode`
   ADD PRIMARY KEY (`numSemaine`);
-
---
--- Index pour la table `professionnel`
---
-ALTER TABLE `professionnel`
-  ADD PRIMARY KEY (`idClient`);
 
 --
 -- Index pour la table `region`

@@ -10,7 +10,7 @@ session_start();
      <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--concerne IE-->
      <meta name="viewport" content="width=device-width, initial-scale=1"> <!--concerne portable-->
 
-     <title> Reservation </title>
+     <title> Restaurant </title>
 
      <link href="bootstrap3/css/bootstrap.css" rel="stylesheet">
      <link href="bootstrap3/css/personalisation_aprecus.css" rel="stylesheet">
@@ -20,7 +20,7 @@ session_start();
 
  </head>
  <body>
-
+<div class="page">
  <div class="container"><!-- au dessus du menu -->
      <div class=" navbar-left inline-form"> <!--�l�ment � gauche--> <a class="logo_wrapper" href="#"><span class="logo"><img src="image/Logo-Restline.png" width="300" height="150"></span></a></div>
      <div class="navbar-right inline-form">
@@ -43,12 +43,14 @@ session_start();
                  <span class="icon-bar"></span>
                  <span class="icon-bar"></span>
                  <span class="icon-bar"></span>
+                 <span class="icon-bar"></span>
 
              </button>
              <ul class="nav navbar-nav"> <!--met sur une ligne-->
                  <li> <a href="index.php"> Accueil </a> </li>
                  <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
                  <li> <a href="Restaurant.php"> Restaurant </a></li>
+                 <li> <a href="Reservation.php"> Reservation</a></li>
                  <li> <a href="Nouscontacter.php"> Nous contacter </a></li>
              </ul>
 
@@ -57,6 +59,7 @@ session_start();
      </div>
 
  </nav><br />
+ <!-- affichage un seul restaurant par son id -->
  <?php
 include("MVC_PHP/Controleur/Controleur_site.php");
 $Controleur = new affichageResto("localhost", "restline", "root", "");
@@ -67,14 +70,8 @@ $Controleur = new affichageResto("localhost", "restline", "root", "");
     $resultats = $Controleur-> Affichageunrestaurant($idResto);
     include("MVC_PHP/Vues/Vues_affichage_un_restaurant.php");
  }
-
-
-
-
-  ?>
-
-
- <hr>
+?>
+<hr>
 
  <!-- Footer -->
  <footer>
@@ -85,7 +82,7 @@ $Controleur = new affichageResto("localhost", "restline", "root", "");
      </div>
  </footer>
 
-
+</div>
 
  </body>
  </html>

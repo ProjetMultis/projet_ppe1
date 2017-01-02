@@ -14,10 +14,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="full-slider/css/full-slider.css" rel="stylesheet">
+    <script src="http://fonts.googleapis.com/css?family=Roboto:400"></script>
 
 </head>
 <body>
-
+<div class="page">
 <div class="container"><!-- au dessus du menu -->
     <div class=" navbar-left inline-form"> <!--�l�ment � gauche--> <a class="logo_wrapper" href="#"><span class="logo"><img src="image/Logo-Restline.png" width="300" height="150"></span></a></div>
     <div class="navbar-right inline-form">
@@ -58,17 +59,11 @@
 <!--formulaire-->
 
 <?php
-  require('MVC_PHP/Modele/Modele_Formulaire_contacte.php');
-  $FormulaireContacte = new FormulaireContacte($_POST);
- ?>
-<form method="post" action="#">
-<?php
-  echo $FormulaireContacte -> inputText('nom');
-  echo $FormulaireContacte -> inputEmail('email');
-  echo $FormulaireContacte -> inputTelephone('tel');
+include("MVC_PHP/Vues/Vues_formulaire.php"); //appelle de la vue pour afficher liste déroulante 
+include("MVC_PHP/Controleur/Controleur_site.php");
+
 ?>
 
- </form>
 <hr>
 
 <!-- Footer -->
@@ -81,6 +76,9 @@
 </footer>
 
 
-
+</div>
 </body>
+<script>
+
+</script>
 </html>

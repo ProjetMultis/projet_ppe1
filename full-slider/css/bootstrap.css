@@ -1124,6 +1124,7 @@ img {
   max-width: 100%;
   height: auto;
 }
+
 .img-rounded {
   border-radius: 6px;
 }
@@ -6753,5 +6754,9 @@ button.close {
   .hidden-print {
     display: none !important;
   }
+}
+#txt
+{
+  text-align: center;
 }
 /*# sourceMappingURL=bootstrap.css.map */

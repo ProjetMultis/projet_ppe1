@@ -20,7 +20,7 @@
 <body>
   <div class="page">
 <div class="container"><!-- au dessus du menu -->
-    <div class=" navbar-left inline-form"> <!--�l�ment � gauche--> <a class="logo_wrapper" href="#"><span class="logo"><img src="image/Logo-Restline.png" width="300" height="150"></span></a></div>
+    <div class=" navbar-left inline-form"> <!--�l�ment � gauche--> <a class="logo_wrapper" href="index.php"><span class="logo"><img src="image/Logo-Restline.png" width="300" height="150"></span></a></div>
     <div class="navbar-right inline-form">
         <p>
             <a href="https://fr.linkedin.com/" ><i class="fa fa-linkedin-square fa-3x" href="#"></i></a>
@@ -39,14 +39,12 @@
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
 
             </button>
             <ul class="nav navbar-nav"> <!--met sur une ligne-->
             <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
             <li> <a href="Restaurant.php"> Restaurant </a></li>
             <li> <a href="Reservation.php"> Reservation </a></li>
-            <li> <a href="Nouscontacter.php"> Nous contacter </a></li>
         </ul>
 
 

@@ -12,7 +12,7 @@ begin
 
     if nbc = 0
       then
-        insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue);
+        insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue, new.mdpClient, new.ville);
     END if;
     select count(*) into nbe
     from Professionnel
@@ -26,7 +26,8 @@ begin
     END //
     Delimiter ;
 
-insert into Particulier values(1, 'titi', 'toto@gmail.com', 0647895612, 78180, '30 rue des blaireaux', 'toto');
+insert into particulier(idClient, nomClient, emailClient, numTelClient, cp, rue,ville, mdpClient, prenom)
+  values(null, "bery", "titi@gmail.com", 0234567895, 92200, "20 avenue kerpse","paris", "moria", "bareau");
 
   drop trigger if exists Particulier;
   Delimiter //
@@ -41,7 +42,7 @@ insert into Particulier values(1, 'titi', 'toto@gmail.com', 0647895612, 78180, '
 
       if nbc = 0
         then
-          insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue);
+          insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue, new.mdpClient, new.ville);
       END if;
       select count(*) into nbe
       from Particulier
@@ -55,4 +56,45 @@ insert into Particulier values(1, 'titi', 'toto@gmail.com', 0647895612, 78180, '
       END //
       Delimiter ;
 
-      insert into Professionnel values(3,'456789', 'juppe', 'joris', 'Feride', 'joris@gmail.com', 0678953212, 78180, '30 rue des blaireaux');
+      insert into particulier values(NULL,'juppe', 'joris@gmail.com', 0678953212, 78180, '30 rue des blaireaux', 'Feride', '123467Ae',   'juppe', 'joris');
+
+2) trigger Ajoutcommentaires pour table commentaire
+
+drop trigger if exists Ajoutcommentaires;
+Delimiter //
+create trigger Ajoutcommentaires
+before insert on Commentaires
+for each row
+begin
+  if(new.idClient IS null)
+    then
+      update client set idClient = (select MAX(idClient)+1 from commentaires where idCom = new.idCom);
+      insert into commentaires set idClient = new.idClient;
+
+  END if;
+  END //
+  Delimiter ;
+
+  insert into commentaires(auteurCom, sujetCom, texteCom) values("Admin", "test 4", "test admin 4");
+
+    3) trigger Ajoutidclient pour table userclient
+
+    drop trigger if exists Ajoutidclient;
+    Delimiter //
+    create trigger Ajoutidclient
+    before insert on userclient
+    for each row
+    begin
+      if(new.idClient IS null)
+        then
+          set new.idClient = (select MAX(idClient)+1 from userclient);
+
+      END if;
+      END //
+      Delimiter ;
+
+     insert into userclient(user, mdpClient) values("vincent", "QAZER/");
+
+   4) mise à jour place dispo
+
+   drop trigger if exists enleverPlace

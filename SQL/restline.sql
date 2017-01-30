@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Ven 30 Décembre 2016 à 14:48
+-- Généré le :  Mer 18 Janvier 2017 à 18:28
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.19
 
@@ -87,13 +87,6 @@ CREATE TABLE `client` (
   `rue` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Contenu de la table `client`
---
-
-INSERT INTO `client` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `cp`, `rue`) VALUES
-(1, 'titi', 'toto@gmail.com', 647895612, 78180, '30 rue des blaireaux');
-
 -- --------------------------------------------------------
 
 --
@@ -101,19 +94,15 @@ INSERT INTO `client` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `c
 --
 
 CREATE TABLE `commentaires` (
-  `idCom` int(10) NOT NULL,
+  `idCom` int(10) NOT NULL auto_increment,
   `auteurCom` varchar(50) DEFAULT NULL,
   `sujetCom` varchar(50) DEFAULT NULL,
   `texteCom` varchar(100) DEFAULT NULL,
-  `idClient` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `idClient` int(10) NOT NULL,
+  primary key(`idCom`),
+  foreign key (`idClient`) references Client(`idClient`)
 
---
--- Contenu de la table `commentaires`
---
-
-INSERT INTO `commentaires` (`idCom`, `auteurCom`, `sujetCom`, `texteCom`, `idClient`) VALUES
-(1, 'admin', 'Premiers commentaires', 'Ceci est le premiers commentaires de l?administrateurs', 1);
+); ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -223,7 +212,24 @@ CREATE TABLE `particulier` (
 --
 
 INSERT INTO `particulier` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `cp`, `rue`, `prenom`) VALUES
-(1, 'titi', 'toto@gmail.com', 647895612, 78180, '30 rue des blaireaux', 'toto');
+(1, 'titi', 'toto@gmail.com', 647895612, 78180, '30 rue des blaireaux', 'toto'),
+(2, 'gery', 'tharossa@gmail.com', 245789632, 92456, '30 rue des moraux', 'titi'),
+(3, 'titi', 'tora@hotmail.fr', 458963212, 78456, '25 boulevard vauban', 'ggg'),
+(11, 'jerem', 'thery@gmail.com', 456789632, 78123, '30 avenue marechal', 'ffdd'),
+(10, 'jerem', 'thery@gmail.com', 456789632, 78123, '30 avenue marechal', 'ffdd'),
+(9, 'dd', 'ff@hotmail.fr', 4789632, 19632, '20 rue des blaireux', 'ff'),
+(8, 'titi', 'tora@hotmail.fr', 458963212, 78456, '25 boulevard vauban', 'ggg'),
+(12, 'jerem', 'thery@gmail.com', 456789632, 78123, '30 avenue marechal', 'ffdd'),
+(13, 'jerem', 'thery@gmail.com', 456789632, 78123, '30 avenue marechal', 'ffdd'),
+(14, 'gery', 'tora@hotmail.fr', 123458963, 94782, '30 avenue lefonte', 'fredi'),
+(15, 'gery', 'tora@hotmail.fr', 123458963, 94782, '30 avenue lefonte', 'fredi'),
+(16, 'gery', 'tora@hotmail.fr', 123458963, 94782, '30 avenue lefonte', 'fredi'),
+(17, 'gery', 'tora@hotmail.fr', 123458963, 94782, '30 avenue lefonte', 'fredi'),
+(18, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut'),
+(19, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut'),
+(20, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut'),
+(21, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut'),
+(22, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut');
 
 --
 -- Déclencheurs `particulier`
@@ -319,6 +325,19 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `race`
+--
+
+CREATE TABLE `race` (
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `nom` varchar(40) NOT NULL,
+  `espece_id` smallint(5) UNSIGNED NOT NULL,
+  `description` text
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `region`
 --
 
@@ -366,12 +385,14 @@ INSERT INTO `region` (`idRegion`, `nomRegion`) VALUES
 --
 
 CREATE TABLE `reservation` (
-  `idReservation` int(10) NOT NULL,
-  `dateReservation` date DEFAULT NULL,
-  `heureReservation` time DEFAULT NULL,
+  `idReservation` int(10) NOT NULL auto_increment,
+  `date_heure_Reservation` datetime DEFAULT NULL,
   `nbPersonnes` int(5) DEFAULT NULL,
   `idResto` int(10) NOT NULL,
-  `idClient` int(10) NOT NULL
+  `idClient` int(10) NOT NULL,
+  primary key(idReservation),
+  foreign key (idResto) references restaurant(idResto),
+  foreign key (idClient) references client(idClient)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -496,6 +517,66 @@ INSERT INTO `typeresto` (`idTypeResto`, `libelle`, `catPrix`, `nbEtoiles`) VALUE
 (2, 'Francais', 'Haute gammes', 5),
 (3, 'Espagnole', 'Bas de gammes', 2),
 (4, 'Allemand', 'Moyenne gammes', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user`
+--
+
+CREATE TABLE `user` (
+  `idUser` int(11) NOT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `prenom` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `mdp` varchar(50) DEFAULT NULL,
+  `permission` tinyint(1) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `user`
+--
+
+INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `mdp`, `permission`) VALUES
+(1, 'Bareaux', 'Emanuel', 'titi@hotmail.com', 'PTUI78/', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `userclient`
+--
+
+CREATE TABLE `userclient` (
+  `idUserClient` int(11) NOT NULL,
+  `user` varchar(50) DEFAULT NULL,
+  `mdpClient` varchar(50) DEFAULT NULL,
+  `idClient` int(11) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `userclient`
+--
+
+INSERT INTO `userclient` (`idUserClient`, `user`, `mdpClient`, `idClient`) VALUES
+(8, 'vincent', 'QAZER/', 8),
+(10, 'Eragon', 'AZER/', 10),
+(12, 'Gery', 'AZERTYUIOP', 12),
+(13, 'Thibaut', 'QUERY', 13),
+(15, 'renee', 'NUIOP', 15);
+
+--
+-- Déclencheurs `userclient`
+--
+DELIMITER $$
+CREATE TRIGGER `Ajoutidclient` BEFORE INSERT ON `userclient` FOR EACH ROW begin
+      if(new.idClient IS null)
+        then
+          set new.idClient = (select MAX(idClient)+1 from userclient);
+
+      END if;
+      END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -631,10 +712,29 @@ ALTER TABLE `menu`
   ADD PRIMARY KEY (`idMenu`);
 
 --
+-- Index pour la table `particulier`
+--
+ALTER TABLE `particulier`
+  ADD PRIMARY KEY (`idClient`);
+
+--
 -- Index pour la table `periode`
 --
 ALTER TABLE `periode`
   ADD PRIMARY KEY (`numSemaine`);
+
+--
+-- Index pour la table `professionnel`
+--
+ALTER TABLE `professionnel`
+  ADD PRIMARY KEY (`idClient`);
+
+--
+-- Index pour la table `race`
+--
+ALTER TABLE `race`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_race_espece_id` (`espece_id`);
 
 --
 -- Index pour la table `region`
@@ -651,6 +751,12 @@ ALTER TABLE `reservation`
   ADD KEY `idClient` (`idClient`);
 
 --
+-- Index pour la table `restaurant`
+--
+ALTER TABLE `restaurant`
+  ADD PRIMARY KEY (`idResto`);
+
+--
 -- Index pour la table `typepaiement`
 --
 ALTER TABLE `typepaiement`
@@ -661,6 +767,19 @@ ALTER TABLE `typepaiement`
 --
 ALTER TABLE `typeresto`
   ADD PRIMARY KEY (`idTypeResto`);
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`idUser`);
+
+--
+-- Index pour la table `userclient`
+--
+ALTER TABLE `userclient`
+  ADD PRIMARY KEY (`idUserClient`),
+  ADD KEY `const_idClient` (`idClient`);
 
 --
 -- Index pour la table `ville`
@@ -677,22 +796,37 @@ ALTER TABLE `ville`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
-  MODIFY `idCom` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCom` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `menu`
 --
 ALTER TABLE `menu`
   MODIFY `idMenu` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT pour la table `particulier`
+--
+ALTER TABLE `particulier`
+  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
 -- AUTO_INCREMENT pour la table `periode`
 --
 ALTER TABLE `periode`
   MODIFY `numSemaine` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `professionnel`
+--
+ALTER TABLE `professionnel`
+  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `race`
+--
+ALTER TABLE `race`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `region`
 --
@@ -704,6 +838,11 @@ ALTER TABLE `region`
 ALTER TABLE `reservation`
   MODIFY `idReservation` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT pour la table `restaurant`
+--
+ALTER TABLE `restaurant`
+  MODIFY `idResto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT pour la table `typepaiement`
 --
 ALTER TABLE `typepaiement`
@@ -713,6 +852,16 @@ ALTER TABLE `typepaiement`
 --
 ALTER TABLE `typeresto`
   MODIFY `idTypeResto` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT pour la table `userclient`
+--
+ALTER TABLE `userclient`
+  MODIFY `idUserClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

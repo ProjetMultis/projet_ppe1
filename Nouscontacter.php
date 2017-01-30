@@ -1,3 +1,6 @@
+<?php
+session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head> <!-- t�te de page -->
@@ -15,6 +18,8 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="full-slider/css/full-slider.css" rel="stylesheet">
     <script src="http://fonts.googleapis.com/css?family=Roboto:400"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -40,14 +45,12 @@
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
 
             </button>
             <ul class="nav navbar-nav"> <!--met sur une ligne-->
                 <li> <a href="index.php"> Accueil </a> </li>
                 <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
                 <li> <a href="Restaurant.php"> Restaurant </a></li>
-                <li> <a href="Reservation.php"> Reservation </a></li>
 
             </ul>
 
@@ -59,7 +62,7 @@
 <!--formulaire-->
 
 <?php
-include("MVC_PHP/Vues/Vues_formulaire.php"); //appelle de la vue pour afficher liste déroulante 
+include("MVC_PHP/Vues/Vues_formulaire.php"); //appelle de la vue pour afficher liste déroulante
 include("MVC_PHP/Controleur/Controleur_site.php");
 
 ?>

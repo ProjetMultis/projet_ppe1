@@ -1,3 +1,4 @@
+#Vue pour afficher tout les restaurant
 create view affichagerestaurant as(
     select R.idResto, R.nomResto, V.nomVille, Re.nomRegion, TR.libelle, R.imageResto
     from ville V, region RE, typeresto TR, restaurant R
@@ -7,6 +8,7 @@ create view affichagerestaurant as(
     order by R.nomResto
   );
 
+#Vue pour afficher un seul restaurant
   create view affichageunrestaurant as(
       select R.nomResto, V.nomVille, Re.nomRegion, TR.libelle, R.imageResto
       from ville V, region Re, typeresto TR, restaurant R
@@ -17,12 +19,14 @@ create view affichagerestaurant as(
       order by R.nomResto
     );
 
+#Vue pour afficher les infos concernant le restaurant
     create view formatunrestaurant as(
         select R.idResto, R.nomResto, R.nbTables, R.nbCouverts, R.telResto, R.heureOuv, R.heureFer, R.ferExceptionnelle, R.imageResto, TR.libelle, TR.catPrix
         from typeresto TR, restaurant R
         where TR.idTypeResto = R.idTypeResto
     );
 
+#Vue pour afficher le menu
 create view affichageMenu as
   (
     select R.idResto, R.nomResto, R.imageResto, M.nomMenu, M.prixMenu, M.ingredientsMenu
@@ -42,3 +46,4 @@ create view selectcontacteprofessionnel as
     select Pro.idClient, Pro.nomClient, Pro.emailClient, Pro.numTelClient, Pro.cp, Pro.rue, Pro.numSiret, Pro.nomContact, Pro.prenomContact, C.auteurCom, C.sujetCom, C.texteCom
     from Commentaires C, professionnel Pro
   );
+  

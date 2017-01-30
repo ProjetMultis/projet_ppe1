@@ -46,7 +46,6 @@
                 <li> <a href="index.php"> Accueil </a> </li>
                 <li> <a href="Restaurant.php"> Restaurant </a></li>
                 <li> <a href="Reservation.php"> Reservation </a></li>
-                <li> <a href="Nouscontacter.php"> Nous contacter </a></li>
             </ul>
 
 

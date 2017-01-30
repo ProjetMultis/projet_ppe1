@@ -4,7 +4,7 @@ echo"<fieldset>
       <legend style=text-align:center;> Formulaire pour les Professionnels </legend>
     </fiedlset>
 <div class= form-group>
-  <form method=post action='Professionnel.php' >
+  <form method=post action='InscriptionProfessionnel.php' >
   <div class=col-md-12>
     <div class='col-md-6'>
       <div class=form-group>
@@ -18,7 +18,7 @@ echo"<fieldset>
       <div class=form-group>
       <div class=input-group>
         <span class='input-group-addon' ><div class='glyphicon glyphicon-list-alt'></div></span>
-        <input id=textinput name='ns' placeholder='Numero Siret' class='form-control input-md' required= type=text>
+        <input id=textinput name='ns' placeholder='Numero Siret' class='form-control input-md' type=text>
       </div>
       </div>
     </div>
@@ -39,7 +39,7 @@ echo"<fieldset>
       <div class=form-group>
       <div class=input-group>
         <span class='input-group-addon' ><div class='glyphicon glyphicon-folder-open'></div></span>
-        <input id=textinput name=pc placeholder='Prenom du Contact' class='form-control input-md' type=text>
+        <input id=textinput name=np placeholder='Prenom du Contact' class='form-control input-md' type=text>
       </div>
       </div>
     </div>
@@ -53,7 +53,7 @@ echo"<fieldset>
     <div class=form-group>
     <div class=input-group>
       <span class='input-group-addon' ><div class='glyphicon glyphicon-envelope'></div></span>
-      <input id=textinput name=mail placeholder=email class='form-control input-md' type=email>
+      <input id=textinput name=mail placeholder=email class='form-control input-md' type=text>
     </div>
     </div>
   </div>
@@ -68,7 +68,7 @@ echo"<fieldset>
 
 </div>".
 
-//champ adresse et rue
+//champ adresse, rue et ville
 "
 
 <div class=col-md-12>
@@ -83,6 +83,8 @@ echo"<fieldset>
   <div class=col-md-6>
     <div class=form-group>
     <div class=input-group>
+      <span class='input-group-addon' ><div class='glyphicon glyphicon-globe'></div></span>
+      <input name=ville placeholder='Ville' class='form-control input-md' type=text>
       <span class='input-group-addon' ><div class='glyphicon glyphicon-road'></div></span>
       <input id=textinput name=code_postal placeholder='Code Postal' class='form-control input-md' type=text>
     </div>
@@ -90,25 +92,26 @@ echo"<fieldset>
   </div>
 </div>".
 
-//Sujet et message
+//Mot de passe et retaper votre mot de passe
 "
-  <div class=col-md-12>
+<div class=col-md-12>
+  <div class=col-md-6>
     <div class=form-group>
     <div class=input-group>
-      <span class='input-group-addon' ><div class='glyphicon glyphicon-comment'></div></span>
-      <input id=textinput name=sujet placeholder=Sujet class='form-control input-md' type=text style=text-align:center;>
+      <span class='input-group-addon' ><div class='glyphicon glyphicon-lock'></div></span>
+      <input id=textinput name=mdp placeholder='Votre mot de passe' class='form-control input-md' type=password>
     </div>
     </div>
   </div>
-
-
-  <div class=col-md-12>
+  <div class=col-md-6>
     <div class=form-group>
     <div class=input-group>
-      <textarea class=form-control placeholder='votre message' id=textarea name=message cols=150></textarea>
+      <span class='input-group-addon' ><div class='glyphicon glyphicon-pencil'></div></span>
+      <input id=textinput name=rmdp placeholder='Retaper votre mot de passe' class='form-control input-md' type=password>
     </div>
     </div>
   </div>
+</div>
 ".
 
 
@@ -117,7 +120,7 @@ echo"<fieldset>
 
 
   <label class='col-md-4 control-label' for=singlebutton></label>
-    <button id=singlebutton name=envoyer class='btn btn-primary'> Envoyer </button>
+    <button id=ins2 name=engip class='btn btn-primary'> Inscription </button>
 
 
 

@@ -1,3 +1,4 @@
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="fr">
 <head> <!-- t�te de page -->
@@ -59,6 +60,67 @@
 <!-- formulaire particulier -->
 <?php
 include("MVC_PHP/Vues/Vues_formulaire_particulier.php");
+include("MVC_PHP/Controleur/Controleur_site.php");
+$connexion = new affichageResto("localhost", "restline", "root", "");
+
+if(isset($_POST['envoyer']))
+{
+
+//sauvegarde des données saisie dans des variables
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $email = $_POST['mail'];
+    $Telephone = $_POST['tel'];
+    $Rue = $_POST['Rue'];
+    $code_postal = $_POST['code_postal'];
+    $auteur = $_POST['nom'];
+    $sujet = $_POST['sujet'];
+    $message = $_POST['message'];
+
+
+
+    if(empty($nom&$prenom&$email&$Telephone&$Rue&$code_postal&$sujet&$message)) //si les champs sont vides
+    {
+      $message = "Champs non remplie";
+    }
+
+    else //sinon si ils sont pas vide
+    {
+
+      $tab = array(
+        //données table particulier
+        "nomClient" => $nom,
+        "prenom" => $prenom,
+        "emailClient" => $email,
+        "numTelClient" => $Telephone,
+        "rue" => $Rue,
+        "cp" => $code_postal,
+        "mdpClient" => $_SESSION['mdp']
+      );
+
+      $connexion->insererParticulier($tab);
+
+      $tab2 = array(
+        //données table commentaires
+        "auteurCom" => $auteur,
+        "sujetCom" => $sujet,
+        "texteCom" => $message,
+        "idClient" => $_SESSION['idClient']
+      );
+
+
+      $connexion->insererMessage($tab2); //éxécution méthode insererMessage dans le constructeur
+
+
+
+      $message = "<p>donnees inserer</p>";
+    }
+
+    echo $message;
+
+
+
+}
 
  ?>
 <!-- Footer -->

@@ -39,14 +39,12 @@
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
 
             </button>
             <ul class="nav navbar-nav"> <!--met sur une ligne-->
                 <li> <a href="index.php"> Accueil </a> </li>
                 <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
                 <li> <a href="Reservation.php"> Reservation </a></li>
-                <li> <a href="Nouscontacter.php"> Nous contacter </a></li>
             </ul>
 
 

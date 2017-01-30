@@ -9,6 +9,9 @@ class affichageResto
     $this ->ModeleAffichage = new Modele_special($serveur, $bdd, $user, $mdp);
 
   }
+
+  //--------- Affichage données ----------
+
   public function AffichageRestaurant() //methode affichage de restaurant > 5 étoiles sur la page index
   {
     $this ->ModeleAffichage->renseigner("affichageunrestaurant");
@@ -35,27 +38,6 @@ class affichageResto
     return $resultats;
   }
 
-  public function formualaireParticulier($champs, $where) //methode pour le formulaire particulier
-  {
-    $this->ModeleAffichage->renseigner("selectcontacteparticulier");
-    $unResultat = $this->ModeleAffichage-> selectWhere($champs, $where);
-
-    return $unResultat;
-  }
-
-  public function formualaireProfessionnel($champs, $where) //methode pour le formulaire professionnel
-  {
-    $this->ModeleAffichage->renseigner("selectcontacteprofessionnel");
-    $unResultat = $this->ModeleAffichage-> selectWhere($champs, $where);
-
-
-    return $unResultat;
-  }
-
-  public function insererBase($tab, $where)
-  {
-    return $this->ModeleAffichage-> insert($tab, $where);
-  }
 
   public function affichageMenu($unMenu) //affichage du menu d'un restaurant
   {
@@ -64,6 +46,109 @@ class affichageResto
 
     return $resultats;
   }
+
+  public function affichageReservation() //affichage tableau reservation
+  {
+    $this->ModeleAffichage-> renseigner("restaurant");
+
+    $resultats = $this->ModeleAffichage-> selectAll();
+
+    return $resultats;
+  }
+
+  public function selectionRestaurant($champs, $where)
+  {
+    $this->ModeleAffichage-> renseigner("restaurant");
+    $resultats = $this->ModeleAffichage-> selectWhere($champs, $where);
+
+    return $resultats;
+  }
+
+  public function AffichageRestaurantPlace() //méthode pour afficher les tables disponibles dans les restaurants
+  {
+    $this->ModeleAffichage-> renseigner("restaurant");
+    $resultats = $this->ModeleAffichage-> selectAll();
+
+    return $resultats;
+  }
+
+  //------ Connexion utilisateur, deco etc ---------
+
+  public function Connexion_client($champs, $where) //methode pour se connecter à l'espace membre
+  {
+    $this->ModeleAffichage-> renseigner("client");
+    $resultats = $this->ModeleAffichage-> selectWhere($champs, $where);
+
+    return $resultats;
+  }
+
+  public function deconnection() //methode pour se deconnecter de l'espace membre
+  {
+    $sedeconnecter = $this->ModeleAffichage-> seDeconnecter();
+
+    return $sedeconnecter;
+  }
+
+  public function idRestaurant() //pour assurer l'insertion du dernier id enregistrer
+  {
+    $Did = $this->ModeleAffichage->  DerniereId();
+
+    return $Did;
+  }
+
+  public function miseajourid($table, $where)
+  {
+    $this->ModeleAffichage-> renseigner("client");
+
+    return $this->ModeleAffichage-> update($table, $where);
+  }
+
+  public function DateHeureReservation()
+  {
+    $dateheure = $this->ModeleAffichage-> obtenirDateHeure();
+    return $dateheure;
+  }
+
+  public function retourneColonne($ligne)
+  {
+    $colonne = $this->ModeleAffichage-> ligneColonne($ligne);
+    return $colonne;
+  }
+
+//------ Insertion Base ------
+
+  public function insererParticulier($tab) //inserer table particulier
+  {
+    $this->ModeleAffichage->renseigner("particulier");
+
+    return $this->ModeleAffichage-> insert($tab);
+
+
+  }
+
+  public function insererProfessionnel($tab) //insérer table professionnel
+  {
+    $this->ModeleAffichage->renseigner("professionnel");
+
+    return $this->ModeleAffichage-> insert($tab);
+  }
+
+  public function insererMessage($tab2) //inserer table commentaire
+  {
+      $this->ModeleAffichage->renseigner("commentaires");
+
+      return $this->ModeleAffichage-> insert($tab2);
+
+  }
+
+
+  public function insertionReservation($tab) //insertion formulaire reservation
+  {
+    $this->ModeleAffichage-> renseigner("reservation");
+
+    return $this->ModeleAffichage-> insert($tab);
+  }
+
 
 
 }

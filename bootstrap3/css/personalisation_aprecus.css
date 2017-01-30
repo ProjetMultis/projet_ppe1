@@ -93,3 +93,99 @@ i
 {
     padding-top: 40px;
 }
+/*bouton espace */
+#rs
+{
+  margin-left: 40%;
+  border-radius: 20px 20px 20px 20px;
+}
+#rs2
+{
+  margin-left: 35%;
+  margin-top: 2%;
+  border-radius: 20px 20px 20px 20px;
+}
+#rs3
+{
+  float: right;
+  margin-top: 10%
+}
+
+/* connextion*/
+
+#connex
+{
+  margin-right: 25%;
+  width: 30%;
+  font-style: italic;
+}
+#connex2
+{
+  margin-left: 38%;
+  font-style: italic;
+}
+#colorb
+{
+  color: black;
+
+}
+
+/* input inscription */
+#inputIns
+{
+  max-width: 50%;
+  margin-left: 25%;
+}
+#inputIns2
+{
+  max-width: 50%;
+  margin-left: 25%;
+  margin-top: 2%;
+}
+#ins
+{
+  margin-right: 8%;
+  margin-top: 2%;
+  width: 30%;
+  font-style: italic;
+}
+#ins2
+{
+  margin-right: 8%;
+  width: 30%;
+  font-style: italic;
+}
+#mI
+{
+  font-style: italic;
+}
+/* bouton page reservation */
+
+#ur
+{
+  float: right;
+  margin-right: 1%;
+  margin-top: -5%;
+  font-size: 110%;
+  font-style: italic;
+}
+#btndec
+{
+  margin-left: 5%;
+}
+
+/*page place disponible*/
+#colorfondj
+{
+  background-color: #ad5151;
+}
+
+/*page choix client*/
+#chu
+{
+  float: right;
+  margin-right: 1%;
+  margin-top: -8%;
+  font-size: 110%;
+  font-style: italic;
+}

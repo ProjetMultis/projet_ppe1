@@ -8,14 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--concerne IE-->
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!--concerne portable-->
 
-    <title> Professionnel </title>
+    <title> Places disponibles des restaurants </title>
 
     <link href="bootstrap3/css/bootstrap.css" rel="stylesheet">
     <link href="bootstrap3/css/personalisation_aprecus.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="full-slider/css/full-slider.css" rel="stylesheet">
-    <script src="http://fonts.googleapis.com/css?family=Roboto:400"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -46,82 +47,26 @@
             </button>
             <ul class="nav navbar-nav"> <!--met sur une ligne-->
                 <li> <a href="index.php"> Accueil </a> </li>
-                <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
                 <li> <a href="Restaurant.php"> Restaurant </a></li>
-                <li> <a href="Reservation.php"> Reservation </a></li>
-
+                <li> <a href="Formulaire_Reserver.php"> Réservation Restaurant </a></li>
             </ul>
-
 
         </div>
     </div>
 
 </nav><br />
-<!-- formulaire professionnel -->
+<!-- Restaurant avec place disponibles -->
 <?php
-  include("MVC_PHP/Vues/Vues_formulaire_professionnel.php");
-  include("MVC_PHP/Controleur/Controleur_site.php");
-  $connexion = new affichageResto("localhost", "restline", "root", "");
+include("MVC_PHP/Controleur/Controleur_site.php");
 
-  if(isset($_POST['envoyer']))
-  {
-    $nom = $_POST['nom'];
-    $prenomContact = $_POST['pc'];
-    $nomContact = $_POST['nc'];
-    $Siret = $_POST['ns'];
-    $email = $_POST['mail'];
-    $Telephone = $_POST['tel'];
-    $Rue = $_POST['Rue'];
-    $code_postal = $_POST['code_postal'];
-    $auteur = $_POST['nom'];
-    $sujet = $_POST['sujet'];
-    $message = $_POST['message'];
+$unControleur = new affichageResto("localhost", "restline", "root", "");
 
-    if(empty($nom&$prenomContact&$nomContact&$Siret&$email&$Telephone&$Rue&$code_postal&$auteur&$sujet&$message))
-    {
-      $message = '<p>champs non rempli</p>';
-    }
-    else
-    {
-      $tab = array(
-        "nomClient" => $nom,
-        "prenomContact" => $prenomContact,
-        "nomContact" => $nomContact,
-        "numSiret" => $Siret,
-        "emailClient" => $email,
-        "numTelClient" => $Telephone,
-        "rue" => $Rue,
-        "cp" => $code_postal,
-        "mdpClient" => $_SESSION['mdp']
-
-      );
-
-      $connexion->insererProfessionnel($tab);
+$resultats = $unControleur -> AffichageRestaurantPlace();
 
 
 
-      $tab2 = array(
-        "auteurCom" => $auteur,
-        "sujetCom" => $sujet,
-        "texteCom" => $message,
-        "idClient" => $_SESSION['idClient']
-
-      );
-
-
-      $connexion->insererMessage($tab2);
-
-      $message = "<p>donnees inserer</p>";
-    }
-
-    echo $message;
-
-
-  }
-
-
-?>
-<!-- Footer -->
+include("MVC_PHP/Vues/Vues_disponibilite_place.php")
+ ?>
 <footer>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
@@ -130,10 +75,7 @@
     </div>
 </footer>
 
-
+</div>
 </div>
 </body>
-<script>
-
-</script>
 </html>

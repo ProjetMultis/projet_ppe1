@@ -57,6 +57,26 @@
 
     $select = $this ->pdo->prepare($requete);
     $select ->execute($donnees);
+    $unResultat = $select->fetch();
+    return $unResultat;
+  }
+
+  public function selectCount($where) //selection avec un count
+  {
+    $clause = array(); //pour les order by etc
+    $donnees = array(); //pour les valeurs dans la bdd
+
+    foreach ($where as $cle => $valeur){
+      # code...
+      $clause[] = $cle."= :".$cle; //selection des clauses(where, order by etc....)
+      $donnees[":".$cle] = $valeur;//$cle = :nom par exempleS
+    }
+
+    $chaineclause = implode(" and ", $clause);
+    $requete = "select count(*) from  ".$this->table."  where  ".$chaineclause.";";
+
+    $select = $this ->pdo->prepare($requete);
+    $select ->execute($donnees);
     var_dump($select);
     $unResultat = $select->fetch();
     return $unResultat;
@@ -82,6 +102,8 @@
     $requete = "insert into ".$this->table."(".$listechamps.") values(".$chaineChamps.");";
     $insert = $this->pdo->prepare($requete);
     $insert->execute($donnees);
+
+
 
 
   }
@@ -128,32 +150,41 @@
     $delete ->execute($donnees);
   }
 
-  public function encrypt($chaine, $key="", $urlvalid=true) //methode pour encrypter une valeur
+  public function seDeconnecter() //méthode pour se déconnecter d'une session
   {
 
-    if ($urlvalid)
-    {
-      $ret = strtr($ret,
-      array(
-            '+' => '.',
-            '=' => '-',
-            '/' => '~'));
-    }
+    $_SESSION = array();
 
-   return $ret;
-  }
+    session_destroy();
 
-  public function decrypt($chaine, $key="") //methode pour decrypter une valeur
-  {
-    $chaine = strtr(
-    $chaine,
-    array(
-          '.' => '+',
-          '-' => '=',
-          '~' => '/'));
-   return $chaine;
-  }
+    unset($_SESSION);
 
+}
+
+public function DerniereId() //obtenir l'id de la 1ere insertion
+{
+  $Did = $this->pdo-> lastInsertId();
+
+  return $Did;
+
+  unset($Did);
+}
+
+public function obtenirDateHeure() //pour obtenir la date et l'heure d'aujourd'hui
+{
+  $zone = new DateTimeZone('Europe/Berlin');
+
+  $dateheure = new DateTime();
+  $dateheure->setTimezone($zone);
+
+  return $dateheure->format('Y\-m\-d\ h:i:s');
+}
+
+public function ligneColonne($ligne)
+{
+  $resultats= $this->pdo-> fetchColumn($ligne);
+  return $resultats;
+}
 
 }
 ?>

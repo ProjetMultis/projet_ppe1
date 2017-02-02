@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 18 Janvier 2017 à 18:28
+-- Généré le :  Mer 01 Février 2017 à 10:36
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.19
 
@@ -84,8 +84,20 @@ CREATE TABLE `client` (
   `emailClient` varchar(40) DEFAULT NULL,
   `numTelClient` int(10) DEFAULT NULL,
   `cp` int(5) DEFAULT NULL,
-  `rue` varchar(50) DEFAULT NULL
+  `rue` varchar(50) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `mdpClient` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `client`
+--
+
+INSERT INTO `client` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `cp`, `rue`, `ville`, `mdpClient`) VALUES
+(6, 'bery', 'tharossa@gmail.com', 247896325, 92200, '10 rue lecourbe', 'Paris', 'benamed'),
+(7, 'bery', 'tharossa@gmail.com', 247896325, 92200, '10 rue lecourbe', 'Paris', 'benamed'),
+(1, 'kery', 'thero@gmail.com', 124789632, 75623, 'rue levallois', 'Magny', 'JUIOP/'),
+(8, 'bery', 'tharossa@gmail.com', 247896325, 92200, '10 rue lecourbe', 'Paris', 'benamed');
 
 -- --------------------------------------------------------
 
@@ -94,15 +106,22 @@ CREATE TABLE `client` (
 --
 
 CREATE TABLE `commentaires` (
-  `idCom` int(10) NOT NULL auto_increment,
+  `idCom` int(10) NOT NULL,
   `auteurCom` varchar(50) DEFAULT NULL,
   `sujetCom` varchar(50) DEFAULT NULL,
   `texteCom` varchar(100) DEFAULT NULL,
-  `idClient` int(10) NOT NULL,
-  primary key(`idCom`),
-  foreign key (`idClient`) references Client(`idClient`)
+  `idClient` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-); ENGINE=MyISAM DEFAULT CHARSET=latin1;
+--
+-- Contenu de la table `commentaires`
+--
+
+INSERT INTO `commentaires` (`idCom`, `auteurCom`, `sujetCom`, `texteCom`, `idClient`) VALUES
+(2, 'bery', 'Test client', 'client fidÃ¨le', 6),
+(3, 'bery', 'deuxieme test', 'test numero 2', 6),
+(4, 'bery', 'deuxieme test', 'test numero 2', 6),
+(5, 'bery', 'deuxieme test', 'test numero 2', 6);
 
 -- --------------------------------------------------------
 
@@ -204,6 +223,8 @@ CREATE TABLE `particulier` (
   `numTelClient` int(10) DEFAULT NULL,
   `cp` int(5) DEFAULT NULL,
   `rue` varchar(50) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `mdpClient` varchar(50) DEFAULT NULL,
   `prenom` varchar(30) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -211,50 +232,36 @@ CREATE TABLE `particulier` (
 -- Contenu de la table `particulier`
 --
 
-INSERT INTO `particulier` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `cp`, `rue`, `prenom`) VALUES
-(1, 'titi', 'toto@gmail.com', 647895612, 78180, '30 rue des blaireaux', 'toto'),
-(2, 'gery', 'tharossa@gmail.com', 245789632, 92456, '30 rue des moraux', 'titi'),
-(3, 'titi', 'tora@hotmail.fr', 458963212, 78456, '25 boulevard vauban', 'ggg'),
-(11, 'jerem', 'thery@gmail.com', 456789632, 78123, '30 avenue marechal', 'ffdd'),
-(10, 'jerem', 'thery@gmail.com', 456789632, 78123, '30 avenue marechal', 'ffdd'),
-(9, 'dd', 'ff@hotmail.fr', 4789632, 19632, '20 rue des blaireux', 'ff'),
-(8, 'titi', 'tora@hotmail.fr', 458963212, 78456, '25 boulevard vauban', 'ggg'),
-(12, 'jerem', 'thery@gmail.com', 456789632, 78123, '30 avenue marechal', 'ffdd'),
-(13, 'jerem', 'thery@gmail.com', 456789632, 78123, '30 avenue marechal', 'ffdd'),
-(14, 'gery', 'tora@hotmail.fr', 123458963, 94782, '30 avenue lefonte', 'fredi'),
-(15, 'gery', 'tora@hotmail.fr', 123458963, 94782, '30 avenue lefonte', 'fredi'),
-(16, 'gery', 'tora@hotmail.fr', 123458963, 94782, '30 avenue lefonte', 'fredi'),
-(17, 'gery', 'tora@hotmail.fr', 123458963, 94782, '30 avenue lefonte', 'fredi'),
-(18, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut'),
-(19, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut'),
-(20, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut'),
-(21, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut'),
-(22, 'Barre', 'thermos111@hotmail.fr', 626106179, 78180, '30 avenue des grillons', 'Thibaut');
+INSERT INTO `particulier` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `cp`, `rue`, `ville`, `mdpClient`, `prenom`) VALUES
+(5, 'bery', 'tharossa@gmail.com', 247896325, 92200, '10 rue lecourbe', 'Paris', 'benamed', 'titi'),
+(1, 'kery', 'thero@gmail.com', 124789632, 75623, 'rue levallois', 'Magny', 'JUIOP/', 'berzeck'),
+(6, 'bery', 'tharossa@gmail.com', 247896325, 92200, '10 rue lecourbe', 'Paris', 'benamed', 'titi'),
+(7, 'bery', 'tharossa@gmail.com', 247896325, 92200, '10 rue lecourbe', 'Paris', 'benamed', 'titi');
 
 --
 -- Déclencheurs `particulier`
 --
 DELIMITER $$
 CREATE TRIGGER `Professionnel` BEFORE INSERT ON `particulier` FOR EACH ROW begin
-  declare nbc, nbe int;
-  select count(*) into nbc
-  from client
-  where idClient = new.idClient;
+      declare nbc, nbe int;
+      select count(*) into nbc
+      from client
+      where idClient = new.idClient;
 
-    if nbc = 0
-      then
-        insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue);
-    END if;
-    select count(*) into nbe
-    from Professionnel
-    where idClient = new.idClient;
+        if nbc = 0
+          then
+            insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue, new.ville, new.mdpClient);
+        END if;
+        select count(*) into nbe
+        from Professionnel
+        where idClient = new.idClient;
 
-    if nbe > 0
-      then
-        SIGNAL SQLSTATE'45000'
-        set message_text = 'il est profesionnel';
-    END if;
-    END
+        if nbe > 0
+          then
+            SIGNAL SQLSTATE'45000'
+            set message_text = 'il est profesionnel';
+        END if;
+        END
 $$
 DELIMITER ;
 
@@ -290,35 +297,44 @@ CREATE TABLE `professionnel` (
   `numTelClient` int(10) DEFAULT NULL,
   `cp` int(5) DEFAULT NULL,
   `rue` varchar(50) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `mdpClient` varchar(50) DEFAULT NULL,
   `numSiret` varchar(35) DEFAULT NULL,
   `nomContact` varchar(20) DEFAULT NULL,
   `prenomContact` varchar(20) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
+-- Contenu de la table `professionnel`
+--
+
+INSERT INTO `professionnel` (`idClient`, `nomClient`, `emailClient`, `numTelClient`, `cp`, `rue`, `ville`, `mdpClient`, `numSiret`, `nomContact`, `prenomContact`) VALUES
+(2, 'bery', 'tharossa@gmail.com', 247896325, 92200, '10 rue lecourbe', 'Paris', 'benamed', '5753ACDC123', 'mareau', 'alex');
+
+--
 -- Déclencheurs `professionnel`
 --
 DELIMITER $$
 CREATE TRIGGER `Particulier` BEFORE INSERT ON `professionnel` FOR EACH ROW begin
-    declare nbc, nbe int;
-    select count(*) into nbc
-    from client
+  declare nbc, nbe int;
+  select count(*) into nbc
+  from client
+  where idClient = new.idClient;
+
+    if nbc = 0
+      then
+        insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue, new.ville, new.mdpClient);
+    END if;
+    select count(*) into nbe
+    from Particulier
     where idClient = new.idClient;
 
-      if nbc = 0
-        then
-          insert into client values(new.idClient, new.nomClient, new.emailClient, new.numTelClient, new.cp, new.rue);
-      END if;
-      select count(*) into nbe
-      from Particulier
-      where idClient = new.idClient;
-
-      if nbe > 0
-        then
-          SIGNAL SQLSTATE'45000'
-          set message_text = 'il est particulier';
-      END if;
-      END
+    if nbe > 0
+      then
+        SIGNAL SQLSTATE'45000'
+        set message_text = 'il est particulier';
+    END if;
+    END
 $$
 DELIMITER ;
 
@@ -385,22 +401,43 @@ INSERT INTO `region` (`idRegion`, `nomRegion`) VALUES
 --
 
 CREATE TABLE `reservation` (
-  `idReservation` int(10) NOT NULL auto_increment,
+  `idReservation` int(10) NOT NULL,
   `date_heure_Reservation` datetime DEFAULT NULL,
   `nbPersonnes` int(5) DEFAULT NULL,
   `idResto` int(10) NOT NULL,
-  `idClient` int(10) NOT NULL,
-  primary key(idReservation),
-  foreign key (idResto) references restaurant(idResto),
-  foreign key (idClient) references client(idClient)
+  `idClient` int(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `reservation`
 --
 
-INSERT INTO `reservation` (`idReservation`, `dateReservation`, `heureReservation`, `nbPersonnes`, `idResto`, `idClient`) VALUES
-(1, '2016-11-17', '09:00:00', 2, 1, 1);
+INSERT INTO `reservation` (`idReservation`, `date_heure_Reservation`, `nbPersonnes`, `idResto`, `idClient`) VALUES
+(1, '2017-01-31 10:25:08', 3, 8, 6),
+(2, '2017-01-31 03:59:26', 3, 4, 6),
+(3, '2017-01-31 04:11:02', 4, 4, 6),
+(4, '2017-01-31 04:13:27', 4, 4, 6),
+(5, '2017-01-31 04:15:23', 9, 1, 6);
+
+--
+-- Déclencheurs `reservation`
+--
+DELIMITER $$
+CREATE TRIGGER `enleverPlace` AFTER INSERT ON `reservation` FOR EACH ROW begin
+    declare EP int;
+    select count(*) into EP
+    from restaurant rest, reservation reserv
+    where rest.idResto = reserv.idResto;
+
+    if(Ep > 0)
+      then
+        update restaurant
+        set nbTables = nbTables - 1
+        where idResto = new.idResto;
+   END if;
+   END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -427,15 +464,15 @@ CREATE TABLE `restaurant` (
 --
 
 INSERT INTO `restaurant` (`idResto`, `nomResto`, `nbTables`, `nbCouverts`, `telResto`, `heureOuv`, `heureFer`, `ferExceptionnelle`, `imageResto`, `idTypeResto`, `cpVille`) VALUES
-(1, 'Amere', 15, 8, 120454678, '09:00:00', '22:00:00', NULL, 'image/amere.jpg', 2, 75001),
-(2, 'Fulgurance', 10, 8, 145802316, '08:00:00', '22:00:00', NULL, 'image/Fulgurance.jpg', 2, 93200),
-(3, 'Les Arlots', 12, 10, 479234556, '08:00:00', '22:00:00', NULL, 'image/les_arlots.jpg', 3, 45530),
-(4, 'Onoto', 11, 12, 101520302, '08:00:00', '22:00:00', NULL, 'image/Onoto.jpg', 4, 94400),
-(5, 'La cave de l os moelle', 20, 6, 245788963, '10:00:00', '23:00:00', NULL, 'image/la_cave_a_los_m.JPG', 3, 92600),
-(6, 'Les marches', 19, 8, 325687945, '10:00:00', '23:00:00', NULL, 'image/les_marches.jpg', 4, 29200),
-(7, 'Le Bon saint pourcain', 18, 14, 456789632, '10:00:00', '23:00:00', NULL, 'image/le_bon_saint_pourcains.jpg', 4, 92100),
-(8, 'Le baratin', 25, 14, 123456789, '08:00:00', '23:00:00', NULL, 'image/le_baratin.jpg', 4, 92200),
-(9, 'la fourchette', 22, 6, 145789663, '08:00:00', '22:00:00', NULL, 'image/la_fourchette.jpg', 2, 75001);
+(1, 'Amere', 11, 8, 120454678, '09:00:00', '22:00:00', NULL, 'image/amere.jpg', 2, 75001),
+(2, 'Fulgurance', 9, 8, 145802316, '08:00:00', '22:00:00', NULL, 'image/Fulgurance.jpg', 2, 93200),
+(3, 'Les Arlots', 11, 10, 479234556, '08:00:00', '22:00:00', NULL, 'image/les_arlots.jpg', 3, 45530),
+(4, 'Onoto', 8, 12, 101520302, '08:00:00', '22:00:00', NULL, 'image/Onoto.jpg', 4, 94400),
+(5, 'La cave de l os moelle', 19, 6, 245788963, '10:00:00', '23:00:00', NULL, 'image/la_cave_a_los_m.JPG', 3, 92600),
+(6, 'Les marches', 18, 8, 325687945, '10:00:00', '23:00:00', NULL, 'image/les_marches.jpg', 4, 29200),
+(7, 'Le Bon saint pourcain', 17, 14, 456789632, '10:00:00', '23:00:00', NULL, 'image/le_bon_saint_pourcains.jpg', 4, 92100),
+(8, 'Le baratin', 24, 14, 123456789, '08:00:00', '23:00:00', NULL, 'image/le_baratin.jpg', 4, 92200),
+(9, 'la fourchette', 21, 6, 145789663, '08:00:00', '22:00:00', NULL, 'image/la_fourchette.jpg', 2, 75001);
 
 -- --------------------------------------------------------
 
@@ -538,45 +575,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`idUser`, `nom`, `prenom`, `email`, `mdp`, `permission`) VALUES
-(1, 'Bareaux', 'Emanuel', 'titi@hotmail.com', 'PTUI78/', 0);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `userclient`
---
-
-CREATE TABLE `userclient` (
-  `idUserClient` int(11) NOT NULL,
-  `user` varchar(50) DEFAULT NULL,
-  `mdpClient` varchar(50) DEFAULT NULL,
-  `idClient` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `userclient`
---
-
-INSERT INTO `userclient` (`idUserClient`, `user`, `mdpClient`, `idClient`) VALUES
-(8, 'vincent', 'QAZER/', 8),
-(10, 'Eragon', 'AZER/', 10),
-(12, 'Gery', 'AZERTYUIOP', 12),
-(13, 'Thibaut', 'QUERY', 13),
-(15, 'renee', 'NUIOP', 15);
-
---
--- Déclencheurs `userclient`
---
-DELIMITER $$
-CREATE TRIGGER `Ajoutidclient` BEFORE INSERT ON `userclient` FOR EACH ROW begin
-      if(new.idClient IS null)
-        then
-          set new.idClient = (select MAX(idClient)+1 from userclient);
-
-      END if;
-      END
-$$
-DELIMITER ;
+(1, 'Bareaux', 'Emanuel', 'titi@hotmail.com', 'PTUI78/', 0),
+(2, 'admin', 'admin', 'admin', 'admin', 1);
 
 -- --------------------------------------------------------
 
@@ -775,13 +775,6 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`idUser`);
 
 --
--- Index pour la table `userclient`
---
-ALTER TABLE `userclient`
-  ADD PRIMARY KEY (`idUserClient`),
-  ADD KEY `const_idClient` (`idClient`);
-
---
 -- Index pour la table `ville`
 --
 ALTER TABLE `ville`
@@ -796,12 +789,12 @@ ALTER TABLE `ville`
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
-  MODIFY `idCom` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCom` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `menu`
 --
@@ -811,7 +804,7 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT pour la table `particulier`
 --
 ALTER TABLE `particulier`
-  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT pour la table `periode`
 --
@@ -821,7 +814,7 @@ ALTER TABLE `periode`
 -- AUTO_INCREMENT pour la table `professionnel`
 --
 ALTER TABLE `professionnel`
-  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `idClient` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `race`
 --
@@ -836,7 +829,7 @@ ALTER TABLE `region`
 -- AUTO_INCREMENT pour la table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `idReservation` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idReservation` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `restaurant`
 --
@@ -856,12 +849,7 @@ ALTER TABLE `typeresto`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT pour la table `userclient`
---
-ALTER TABLE `userclient`
-  MODIFY `idUserClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

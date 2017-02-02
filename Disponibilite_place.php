@@ -63,9 +63,7 @@ $unControleur = new affichageResto("localhost", "restline", "root", "");
 
 $resultats = $unControleur -> AffichageRestaurantPlace();
 
-
-
-include("MVC_PHP/Vues/Vues_disponibilite_place.php")
+include("MVC_PHP/Vues/Vues_disponibilite_place.php");
  ?>
 <footer>
     <div class="row">
@@ -75,7 +73,6 @@ include("MVC_PHP/Vues/Vues_disponibilite_place.php")
     </div>
 </footer>
 
-</div>
 </div>
 </body>
 </html>

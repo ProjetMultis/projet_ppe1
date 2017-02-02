@@ -41,14 +41,12 @@
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
 
             </button>
-            <ul class="nav navbar-nav"> <!--met sur une ligne-->
+            <ul class="nav navbar-nav" id="plM"> <!--met sur une ligne-->
                 <li> <a href="index.php"> Accueil </a> </li>
-                <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
                 <li> <a href="Restaurant.php"> Restaurant </a></li>
-                <li> <a href="Reservation.php"> Reservation </a></li>
+                <li> <a href="Espace.php"> Espace </a></li>
 
             </ul>
 
@@ -62,29 +60,155 @@
 include("MVC_PHP/Vues/Vues_formulaire_particulier.php");
 include("MVC_PHP/Controleur/Controleur_site.php");
 $connexion = new affichageResto("localhost", "restline", "root", "");
+$tableau = array();
 
 if(isset($_POST['envoyer']))
 {
 
 //sauvegarde des données saisie dans des variables
     $nom = $_POST['nom'];
+
+    if(strlen($nom) == 0)
+      {
+        $tableau['nom'][] = "<br />
+            <div class='alert alert-danger'>
+              <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+              <p style='text-align: center;'>noms obligatoire</p>
+            </div>";
+      }
+
+    else if($nom != is_string($nom))
+      {
+        $tableau['nom'][] = "<br />
+              <div class='alert alert-danger'>
+                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+                <p style='text-align: center;'>Le nom n'est pas au bon format</p>
+              </div>";
+      }
+
     $prenom = $_POST['prenom'];
+
+    if(strlen($prenom) == 0)
+      {
+        $tableau['prenom'][] = "<br />
+            <div class='alert alert-danger'>
+              <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+              <p style='text-align: center;'>prenoms obligatoire</p>
+            </div>";
+      }
+
+    else if($prenom != is_string($prenom))
+      {
+        $tableau['prenom'][] = "<br />
+              <div class='alert alert-danger'>
+                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+                <p style='text-align: center;'>Ceci n'est pas une chaine de caractère</p>
+              </div>";
+      }
+
     $email = $_POST['mail'];
+
+    if(strlen($email) == 0)
+      {
+        $tableau['mail'][] = "<br />
+            <div class='alert alert-danger'>
+              <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+              <p style='text-align: center;'>Email obligatoire</p>
+            </div>";
+      }
+
+    else if(!preg_match("#^([a-zA-Z0-9._-]*)@([a-zA-Z0-9._-]*)\.([a-zA-Z]*)$#", $email))
+        {
+          $tableau['mail'][] = "<br />
+                <div class='alert alert-danger'>
+                  <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+                  <p style='text-align: center;'>Email pas au bon format</p>
+                </div>";
+        }
+
     $Telephone = $_POST['tel'];
+
+    if(is_integer($Telephone))
+        {
+          $tableau['tel'][] = "<br />
+              <div class='alert alert-danger'>
+                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+                <p style='text-align: center;'>Format du telephone invalide</p>
+              </div>";
+        }
+
     $Rue = $_POST['Rue'];
+    $ville = $_POST['ville'];
     $code_postal = $_POST['code_postal'];
+
+    if(is_integer($ville))
+        {
+          $tableau['code_postal'][] = "<br />
+              <div class='alert alert-danger'>
+                <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
+                <p style='text-align: center;'>Format de la ville invalide</p>
+              </div>";
+        }
+
+    if(is_integer($code_postal))
+        {
+          $tableau['code_postal'][] = "<br />
+              <div class='alert alert-danger'>
+                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+                <p style='text-align: center;'>Format du code postal invalide</p>
+              </div>";
+        }
+
+    else if(strlen($code_postal) != 5 && $code_postal > 0)
+        {
+          $tableau['code_postal'][] = "<br />
+              <div class='alert alert-danger'>
+                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+                <p style='text-align: center;'>Code postal invalide</p>
+              </div>";
+        }
+
     $auteur = $_POST['nom'];
     $sujet = $_POST['sujet'];
     $message = $_POST['message'];
 
-
-
-    if(empty($nom&$prenom&$email&$Telephone&$Rue&$code_postal&$sujet&$message)) //si les champs sont vides
+    if($sujet != is_string($sujet) && $sujet > 0)
     {
-      $message = "Champs non remplie";
+      $tableau['sujet'][] = "<br />
+          <div class='alert alert-danger'>
+            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'>Format sur le champ sujet invalide</p>
+          </div>";
     }
 
-    else //sinon si ils sont pas vide
+    else if($sujet > 50)
+    {
+      $tableau['sujet'][] = "<br />
+          <div class='alert alert-danger'>
+            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'> Sujet trop long </p>
+          </div>";
+    }
+
+    if($message != is_string($message) && $sujet > 0)
+    {
+      $tableau['message'][] = "<br />
+          <div class='alert alert-danger'>
+            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'>Format sur le champ Message invalide</p>
+          </div>";
+    }
+
+    else if($message > 100)
+    {
+      $tableau['message'][] = "<br />
+          <div class='alert alert-danger'>
+            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'> Message trop long </p>
+          </div>";
+    }
+
+    if(count($tableau) == 0)
     {
 
       $tab = array(
@@ -94,6 +218,7 @@ if(isset($_POST['envoyer']))
         "emailClient" => $email,
         "numTelClient" => $Telephone,
         "rue" => $Rue,
+        "ville" => $ville,
         "cp" => $code_postal,
         "mdpClient" => $_SESSION['mdp']
       );
@@ -116,7 +241,14 @@ if(isset($_POST['envoyer']))
       $message = "<p>donnees inserer</p>";
     }
 
-    echo $message;
+    if (count($tableau) > 0)
+    {
+      foreach ($tableau as $champEnErreur => $erreursDuChamp) {
+        foreach ($erreursDuChamp as $erreur) {
+            echo $erreur;
+        }
+    }
+  }
 
 
 

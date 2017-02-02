@@ -37,8 +37,6 @@
       return $resultats;
     }
 
-
-
   }
 
  ?>

@@ -2,7 +2,7 @@
  //champ nom et prenom
 echo"<fieldset>
       <legend style=text-align:center;> Formulaire pour les Particuliers </legend>
-    </fiedlset>
+    </fieldset>
 <div class= form-group>
   <form method=post action='InscriptionParticulier.php'>
   <div class=col-md-12>

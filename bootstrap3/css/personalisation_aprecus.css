@@ -189,3 +189,22 @@ i
   font-size: 110%;
   font-style: italic;
 }
+
+/*formulaire particulier et pro*/
+#btnfpar
+{
+  margin-right: 8%;
+  width: 30%;
+  font-style: italic;
+}
+
+#btnfpro
+{
+  margin-right: 8%;
+  width: 30%;
+  font-style: italic;
+}
+#plM
+{
+  margin: auto auto auto 65%;
+}

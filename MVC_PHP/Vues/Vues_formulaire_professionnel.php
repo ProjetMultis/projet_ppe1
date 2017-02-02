@@ -2,7 +2,7 @@
  //champ nom et siret
 echo"<fieldset>
       <legend style=text-align:center;> Formulaire pour les Professionnels </legend>
-    </fiedlset>
+    </fieldset>
 <div class= form-group>
   <form method=post action='Professionnel.php' >
   <div class=col-md-12>
@@ -18,7 +18,7 @@ echo"<fieldset>
       <div class=form-group>
       <div class=input-group>
         <span class='input-group-addon' ><div class='glyphicon glyphicon-list-alt'></div></span>
-        <input id=textinput name='ns' placeholder='Numero Siret' class='form-control input-md' required= type=text>
+        <input id=textinput name='ns' placeholder='Numero Siret' class='form-control input-md' type=text>
       </div>
       </div>
     </div>
@@ -83,6 +83,8 @@ echo"<fieldset>
   <div class=col-md-6>
     <div class=form-group>
     <div class=input-group>
+      <span class='input-group-addon' ><div class='glyphicon glyphicon-globe'></div></span>
+      <input name=ville placeholder='Ville' class='form-control input-md' type=text>
       <span class='input-group-addon' ><div class='glyphicon glyphicon-road'></div></span>
       <input id=textinput name=code_postal placeholder='Code Postal' class='form-control input-md' type=text>
     </div>
@@ -105,7 +107,7 @@ echo"<fieldset>
   <div class=col-md-12>
     <div class=form-group>
     <div class=input-group>
-      <textarea class=form-control placeholder='votre message' id=textarea name=message cols=150></textarea>
+      <textarea class=form-control placeholder='Votre Message' id=textarea name=message cols=200></textarea>
     </div>
     </div>
   </div>
@@ -117,7 +119,7 @@ echo"<fieldset>
 
 
   <label class='col-md-4 control-label' for=singlebutton></label>
-    <button id=singlebutton name=envoyer class='btn btn-primary'> Envoyer </button>
+    <button id=btnfpro name=envoyer class='btn btn-primary'> Envoyer Message </button>
 
 
 

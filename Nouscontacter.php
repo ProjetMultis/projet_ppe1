@@ -49,8 +49,8 @@ session_start();
             </button>
             <ul class="nav navbar-nav"> <!--met sur une ligne-->
                 <li> <a href="index.php"> Accueil </a> </li>
-                <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
-                <li> <a href="Restaurant.php"> Restaurant </a></li>
+                <li> <a href="Restaurant.php"> Restaurant </a> </li>
+                <li> <a href="Disponibilite_place.php"> Place Disponible </a></li>
 
             </ul>
 

@@ -2,7 +2,7 @@
  //champ nom et siret
 echo"<fieldset>
       <legend style=text-align:center;> Formulaire pour les Professionnels </legend>
-    </fieldset>
+    </fiedlset>
 <div class= form-group>
   <form method=post action='InscriptionProfessionnel.php' >
   <div class=col-md-12>

@@ -60,91 +60,57 @@
 
 include("MVC_PHP/Controleur/Controleur_site.php");
 include("MVC_PHP/Vues/Vues_connexion_espace.php");
-$tableau = array();
-$connexion = new affichageResto("localhost", "restline", "root", "");
 
 if(isset($_POST['envoyer']))
 {
-  //variable enregistrement clavier
   $email = htmlspecialchars($_POST['email']);
   $mdp = htmlspecialchars($_POST['mdp']);
 
-//----- Partie intialisation requête ------
 
-  //le where de la requête select exemple : where idClient = 2
-  $where = array(
-      "emailClient" => $email,
-      "mdpClient" => $mdp
-    );
 
-  //les champs de la requête select exemple : select idClient, nomClient etc..
-  $champs = array("idClient", "nomClient", "mdpClient", "emailClient");
-
-  /*appelle de la méthode Connexion_client dans le constructeur pour intialiser la requête selectWhere contenue dans la méthode
-  selectWhere du Modele*/
-  $unUtilisateur = $connexion-> Connexion_client($champs, $where);
-
-//------- Partie vérification champs --------
-
-  //verification champs email
-  if(strlen($email) == 0 ) //si pas d'email tapé
+  if(strlen($email) == "" && strlen($mdp) == "")
   {
-    $tableau['email'][] = "<br />
+    echo"<br />
         <div class='alert alert-danger'>
           <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
-          <p style='text-align: center;'>veuilliez saisir votre email </p>
+          <p style='text-align: center;'>Veuilliez saisir tout les champs</p>
         </div>";
   }
-  else if(!preg_match("#^([a-zA-Z0-9._-]*)@([a-zA-Z0-9._-]*)\.([a-zA-Z]*)$#", $email)) //sinon si email pas au bon format
+  else if(strlen($email) == "" )
   {
-    $tableau['email'][] = "<br />
-        <div class='alert alert-danger'>
-            <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
-            <p style='text-align: center;'>Email pas au bon format</p>
-        </div>";
-  }
-
-  //vérification champs mot de passe
-
-  if(strlen($mdp) == 0) //si aucun mot de passe tapé
-  {
-    $tableau['mdp'][] = "<br />
+    echo"<br />
         <div class='alert alert-danger'>
           <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
-          <p style='text-align: center;'>veuilliez saisir votre mot de passe </p>
+          <p style='text-align: center;'>veuilliez saisir un nom d'utilisateur</p>
         </div>";
   }
-
-  else if($mdp != $unUtilisateur['mdpClient']) //sinon si le mot de passe tapé ne correspond pas au mdp de la base
+  else if(strlen($mdp) == "")
   {
-    $tableau['mdp'][] = "<br />
-      <div class='alert alert-danger'>
-        <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
-        <p style='text-align: center;'> Mot de passe invalide </p>
-      </div>";
+    echo"<br />
+        <div class='alert alert-danger'>
+          <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
+          <p style='text-align: center;'>veuilliez saisir un email</p>
+        </div>";
   }
-
-// -------- Partie aucune erreurs ou plusieurs erreurs ----------
-
-  if(count($tableau) == 0) //si aucune erreurs trouvé
+  else
   {
+    $connexion = new affichageResto("localhost", "restline", "root", "");
 
-    $_SESSION['email'] = $email;
-    $_SESSION['mdp'] = $mdp;
-    $_SESSION['user'] = $unUtilisateur['nomClient'];
-    $_SESSION['idClient'] = $unUtilisateur['idClient'];
-    header("location:Espace.php");
-  }
+    $where = array(
+        "emailClient" => $email,
+        "mdpClient" => $mdp
+      );
 
-  if (count($tableau) > 0) //si les les erreurs sont supérieure à 0
-  {
-    foreach ($tableau as $champEnErreur => $erreursDuChamp)
-    {
-      foreach ($erreursDuChamp as $erreur)
-      {
-        echo $erreur;
-      }
-    }
+      $champs = array("idClient", "nomClient", "mdpClient", "emailClient");
+      $unUtilisateur = $connexion-> Connexion_client($champs, $where);
+
+        $_SESSION['email'] = $email;
+        $_SESSION['mdp'] = $mdp;
+        $_SESSION['user'] = $unUtilisateur['nomClient'];
+        $_SESSION['idClient'] = $unUtilisateur['idClient'];
+        header("location:Espace.php");
+
+
   }
 }
  ?>

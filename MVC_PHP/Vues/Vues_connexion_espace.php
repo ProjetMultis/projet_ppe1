@@ -2,7 +2,7 @@
 echo "
       <fieldset>
         <legend style=text-align:center;> Connexion utilisateurs </legend>
-      </fieldset>
+      </fiedlset>
       <form method=post action='Reservation.php' >
       <div class=col-md-12>
         <div class='col-md-6'>

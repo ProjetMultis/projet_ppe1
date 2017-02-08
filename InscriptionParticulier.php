@@ -67,7 +67,7 @@
 
     if(strlen($nom) == 0)
       {
-        $tableau['nom'][] = "
+        $tableau['nom'][] = "<br />
             <div class='alert alert-danger'>
               <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
               <p style='text-align: center;'>noms obligatoire</p>
@@ -76,7 +76,7 @@
 
     else if($nom != is_string($nom))
       {
-        $tableau['nom'][] = "
+        $tableau['nom'][] = "<br />
               <div class='alert alert-danger'>
                 <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
                 <p style='text-align: center;'>Le nom n'est pas au bon format</p>
@@ -87,7 +87,7 @@
 
     if(strlen($prenom) == 0)
       {
-        $tableau['prenom'][] = "
+        $tableau['prenom'][] = "<br />
             <div class='alert alert-danger'>
               <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
               <p style='text-align: center;'>prenoms obligatoire</p>
@@ -96,7 +96,7 @@
 
     else if($prenom != is_string($prenom))
       {
-        $tableau['prenom'][] = "
+        $tableau['prenom'][] = "<br />
               <div class='alert alert-danger'>
                 <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
                 <p style='text-align: center;'>Ceci n'est pas une chaine de caractère</p>
@@ -107,7 +107,7 @@
 
     if(strlen($email) == 0)
       {
-        $tableau['mail'][] = "
+        $tableau['mail'][] = "<br />
             <div class='alert alert-danger'>
               <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
               <p style='text-align: center;'>Email obligatoire</p>
@@ -116,7 +116,7 @@
 
     else if(!preg_match("#^([a-zA-Z0-9._-]*)@([a-zA-Z0-9._-]*)\.([a-zA-Z]*)$#", $email))
         {
-          $tableau['mail'][] = "
+          $tableau['mail'][] = "<br />
                 <div class='alert alert-danger'>
                   <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
                   <p style='text-align: center;'>Email pas au bon format</p>
@@ -127,7 +127,7 @@
 
     if(is_integer($telephone))
         {
-          $tableau['tel'][] = "
+          $tableau['mail'][] = "<br />
               <div class='alert alert-danger'>
                 <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
                 <p style='text-align: center;'>Format du telephone invalide</p>
@@ -140,7 +140,7 @@
 
     if(is_integer($ville))
         {
-          $tableau['ville'][] = "
+          $tableau['code_postal'][] = "<br />
               <div class='alert alert-danger'>
                 <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
                 <p style='text-align: center;'>Format de la ville invalide</p>
@@ -148,16 +148,16 @@
         }
     if(is_integer($code_postal))
         {
-          $tableau['code_postal'][] = "
+          $tableau['code_postal'][] = "<br />
               <div class='alert alert-danger'>
                 <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
                 <p style='text-align: center;'>Format du code postal invalide</p>
               </div>";
         }
 
-    else if(strlen($code_postal) != 5 && $code_postal > 0)
+    else if(strlen($code_postal) < 5 || strlen($code_postal) > 5)
         {
-          $tableau['code_postal'][] = "
+          $tableau['code_postal'][] = "<br />
               <div class='alert alert-danger'>
                 <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
                 <p style='text-align: center;'>Code postal invalide</p>
@@ -169,7 +169,7 @@
 
     if(strlen($mdp) == 0)
       {
-        $tableau['mdp'][] = "
+        $tableau['mdp'][] = "<br />
             <div class='alert alert-danger'>
               <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
               <p style='text-align: center;'>mot de passe obligatoire</p>
@@ -178,7 +178,7 @@
 
     else if(strlen($rmdp) == 0)
       {
-        $tableau['rmdp'][] = "
+        $tableau['rmdp'][] = "<br />
             <div class='alert alert-danger'>
               <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
               <p style='text-align: center;'>Retaper le mot de passe est obligatoire</p>
@@ -187,7 +187,7 @@
 
     else if($mdp != $rmdp)
       {
-            $tableau['mdp'][] = "
+            $tableau['mdp'][] = "<br />
                 <div class='alert alert-danger'>
                   <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
                   <p style='text-align: center;'> les deux mots de passe doit être identiques</p>
@@ -224,9 +224,12 @@
             echo $erreur;
         }
     }
+
+    }
+
+
   }
 
-}
 
  ?>
 <footer>

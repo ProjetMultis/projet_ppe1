@@ -61,6 +61,27 @@
     return $unResultat;
   }
 
+  public function selectCount($where) //selection avec un count
+  {
+    $clause = array(); //pour les order by etc
+    $donnees = array(); //pour les valeurs dans la bdd
+
+    foreach ($where as $cle => $valeur){
+      # code...
+      $clause[] = $cle."= :".$cle; //selection des clauses(where, order by etc....)
+      $donnees[":".$cle] = $valeur;//$cle = :nom par exempleS
+    }
+
+    $chaineclause = implode(" and ", $clause);
+    $requete = "select count(*) from  ".$this->table."  where  ".$chaineclause.";";
+
+    $select = $this ->pdo->prepare($requete);
+    $select ->execute($donnees);
+    var_dump($select);
+    $unResultat = $select->fetch();
+    return $unResultat;
+  }
+
 
 
   public function insert($tab)

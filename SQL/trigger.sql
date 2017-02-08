@@ -97,22 +97,4 @@ begin
 
    4) mise à jour place dispo
 
-   drop trigger if exists enleverPlace;
-   Delimiter //
-   create trigger enleverPlace
-   After insert on reservation
-   for each row
-   begin
-    declare EP int;
-    select count(*) into EP
-    from restaurant rest, reservation reserv
-    where rest.idResto = reserv.idResto;
-
-    if(Ep > 0)
-      then
-        update restaurant
-        set nbTables = nbTables - 1
-        where idResto = new.idResto;
-   END if;
-   END //
-   Delimiter ;
+   drop trigger if exists enleverPlace

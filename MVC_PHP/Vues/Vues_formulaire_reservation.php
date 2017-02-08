@@ -1,7 +1,6 @@
 <?php
 echo"<fieldset>
       <legend style=text-align:center;>Réservation Restaurant </legend>
-     </fieldset>
   <div class='btn-group' id=ur>
   <button type='button' class='btn btn-danger'> Menu Compte </button>
   <button type='button' class='btn btn-danger dropdown-toggle' data-toggle='dropdown'>
@@ -19,6 +18,8 @@ echo"<fieldset>
     </form>
   </ul>
 </div>
+
+    </fiedlset>
     ";
 
 foreach ($resultats as $Reservation)

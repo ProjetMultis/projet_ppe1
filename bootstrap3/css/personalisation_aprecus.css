@@ -32,6 +32,7 @@
 
 footer {
     margin: 50px 0;
+    background-color: #201E1E;
 }
 .carousel-control,
 .item {
@@ -87,6 +88,12 @@ body {
     min-height: 64px;
     z-index: 100;
 }
+.navbar-nav
+{
+    margin: auto auto auto 55%;
+	display: -moz-grid-group;
+	text-align: -moz-center;
+}
 /*.signelogo  {color:#fff; background:#e95850; font-weight: 700; padding: 5px 12px; }*/
 
 i
@@ -94,6 +101,7 @@ i
     padding-top: 40px;
 }
 /*bouton espace */
+
 #rs
 {
   margin-left: 40%;
@@ -179,6 +187,12 @@ i
 {
   background-color: #ad5151;
 }
+.jumbotron
+{
+  border-radius: 6px;
+  width: auto;
+  height: 220PX;
+}
 
 /*page choix client*/
 #chu
@@ -188,4 +202,23 @@ i
   margin-top: -8%;
   font-size: 110%;
   font-style: italic;
+}
+
+/*formulaire particulier et pro*/
+#btnfpar
+{
+  margin-right: 8%;
+  width: 30%;
+  font-style: italic;
+}
+
+#btnfpro
+{
+  margin-right: 8%;
+  width: 30%;
+  font-style: italic;
+}
+#plM
+{
+  margin: auto auto auto 65%;
 }

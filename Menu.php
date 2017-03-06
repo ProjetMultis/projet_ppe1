@@ -18,40 +18,11 @@
 </head>
 <body>
 <div class="page">
-<div class="container"><!-- au dessus du menu -->
-    <div class=" navbar-left inline-form"> <!--�l�ment � gauche--> <a class="logo_wrapper" href="#"><span class="logo"><img src="image/Logo-Restline.png" width="300" height="150"></span></a></div>
-    <div class="navbar-right inline-form">
-        <p>
-            <a href="https://fr.linkedin.com/" ><i class="fa fa-linkedin-square fa-3x" href="#"></i></a>
-            <a href="http://facebook.com" ><i class="fa fa-facebook-square fa-3x"></i></a>
-            <a href="https://twitter.com/" ><i class="fa fa-twitter-square fa-3x"></i></a>
-
-        </p>
-    </div>
-</div>
+  <!--- dessus navbar -->
+  <?php include("Include_code/dessus_Navbar.php"); ?>
 
 <!-- Menu -->
-
-<nav class="navbar navbar-primary">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-
-            </button>
-            <ul class="nav navbar-nav"> <!--met sur une ligne-->
-                <li> <a href="index.php"> Accueil </a> </li>
-                <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
-                <li> <a href="Reservation.php"> Reservation </a></li>
-            </ul>
-
-
-        </div>
-    </div>
-
-</nav><br />
+<?php include("Include_code/Navbar_hc.php"); ?>
 <!--Menu restaurant-->
 <div class="container">
 <?php
@@ -94,18 +65,16 @@ if(isset($_GET['idResto']))
 }
 
  ?>
-<hr>
+
+
 <script src="bootstrap3/js/bootstrap.js"></script>
 
-<!-- Footer -->
-<footer>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-            <p>Copyright &copy; Your Website 2014</p>
-        </div>
-    </div>
-</footer>
+<!-- footer -->
+<?php include("Include_code/footer.php"); ?>
+
 </div>
+
+
 </div>
 
 </body>

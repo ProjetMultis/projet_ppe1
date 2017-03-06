@@ -9,7 +9,7 @@ echo"
     <span class='caret'></span>
     <span class='sr-only'>Toggle Dropdown</span>
   </button>
-  <ul class=dropdown-menu role=menu>
+  <ul class='dropdown-menu' role=menu>
     <li><a href=#>Connecté en tant que : <strong>" . $_SESSION['user'] . " </strong></li>
     <li class='divider'></li>
     <li><a href=Nouscontacter.php> Nous contacter</a></li>
@@ -22,7 +22,7 @@ echo"
 </div>";
 foreach($resultats as $lesResultats)
 {
-  echo "<div class='col-md-4'><div class='jumbotron' id=colorfondj>
+  echo "<div class='col-md-4 col-sm-4 col-lg-4 col-xs-4'><div class='jumbotron' id=colorfondj>
   <h2 style='text-align: center;'><u>".$lesResultats['nomResto']."</u></h2>
   <p style='text-align: center;'> Nombre de tables restantes : ".$lesResultats['nbTables']."</p>
 </div>

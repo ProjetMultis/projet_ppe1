@@ -108,3 +108,40 @@ begin
         END if;
         END //
         Delimiter ;
+
+  ----- table reservation ------
+  CREATE TABLE `reservation` (
+
+    `idReservation` int(10) NOT NULL auto_increment,
+    `date_heure_Reservation` datetime DEFAULT NULL,
+    `nbPersonnes` int(5) DEFAULT NULL,
+    `statut` varchar(50) DEFAULT NULL,
+    `idResto` int(10) NOT NULL,
+    `idClient` int(10) NOT NULL,
+    primary key(idReservation),
+    foreign key (idResto) references restaurant(idResto),
+    foreign key (idClient) references client(idClient)
+  ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+
+  -------  trigger table reservation -------
+
+  drop trigger if exists enleverPlace;
+  Delimiter //
+  create trigger enleverPlace
+  After insert on reservation
+  for each row
+  begin
+   declare EP int;
+   select count(*) into EP
+   from restaurant rest, reservation reserv
+   where rest.idResto = reserv.idResto;
+
+   if(Ep > 0)
+     then
+       update restaurant
+       set nbTables = nbTables - 1
+       where idResto = new.idResto;
+  END if;
+  END //
+  Delimiter ;

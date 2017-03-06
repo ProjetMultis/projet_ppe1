@@ -22,109 +22,109 @@
 </head>
 <body>
 <div class="page">
-<div class="container"><!-- au dessus du menu -->
-    <div class=" navbar-left inline-form"> <!--�l�ment � gauche--> <a class="logo_wrapper" href="#"><span class="logo"><img src="image/Logo-Restline.png" width="300" height="150"></span></a></div>
-    <div class="navbar-right inline-form">
-        <p>
-            <a href="https://fr.linkedin.com/" ><i class="fa fa-linkedin-square fa-3x" href="#"></i></a>
-            <a href="http://facebook.com" ><i class="fa fa-facebook-square fa-3x"></i></a>
-            <a href="https://twitter.com/" ><i class="fa fa-twitter-square fa-3x"></i></a>
-
-        </p>
-    </div>
-</div>
+  <!--- dessus navbar -->
+  <?php include("Include_code/dessus_Navbar.php"); ?>
 
 <!-- Menu -->
-
-<nav class="navbar navbar-primary">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-
-            </button>
-            <ul class="nav navbar-nav"> <!--met sur une ligne-->
-                <li> <a href="index.php"> Accueil </a> </li>
-                <li> <a href="Quisommenous.php"> Qui sommes-nous? </a> </li>
-                <li> <a href="Restaurant.php"> Restaurant </a></li>
-            </ul>
-        </div>
-    </div>
-
-</nav><br />
+<?php include("Include_code/Navbar_hc.php"); ?>
 <!--formulaire -->
 
 <?php
 
 include("MVC_PHP/Controleur/Controleur_site.php");
 include("MVC_PHP/Vues/Vues_connexion_espace.php");
+$tableau = array();
+$connexion = new affichageResto("localhost", "restline", "root", "");
 
 if(isset($_POST['envoyer']))
 {
+  //variable enregistrement clavier
   $email = htmlspecialchars($_POST['email']);
   $mdp = htmlspecialchars($_POST['mdp']);
 
+//----- Partie intialisation requête ------
 
+  //le where de la requête select exemple : where idClient = 2
+  $where = array(
+      "emailClient" => $email,
+      "mdpClient" => $mdp
+    );
 
-  if(strlen($email) == "" && strlen($mdp) == "")
+  //les champs de la requête select exemple : select idClient, nomClient etc..
+  $champs = array("idClient", "nomClient", "mdpClient", "emailClient");
+
+  /*appelle de la méthode Connexion_client dans le constructeur pour intialiser la requête selectWhere contenue dans la méthode
+  selectWhere du Modele*/
+  $unUtilisateur = $connexion-> Connexion_client($champs, $where);
+
+//------- Partie vérification champs --------
+
+  //verification champs email
+  if(strlen($email) == 0 ) //si pas d'email tapé
   {
-    echo"<br />
+    $tableau['email'][] = "<br />
         <div class='alert alert-danger'>
           <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
-          <p style='text-align: center;'>Veuilliez saisir tout les champs</p>
+          <p style='text-align: center;'>veuilliez saisir votre email </p>
         </div>";
   }
-  else if(strlen($email) == "" )
+  else if(!preg_match("#^([a-zA-Z0-9._-]*)@([a-zA-Z0-9._-]*)\.([a-zA-Z]*)$#", $email)) //sinon si email pas au bon format
   {
-    echo"<br />
+    $tableau['email'][] = "<br />
+        <div class='alert alert-danger'>
+            <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'>Email pas au bon format</p>
+        </div>";
+  }
+
+  //vérification champs mot de passe
+
+  if(strlen($mdp) == 0) //si aucun mot de passe tapé
+  {
+    $tableau['mdp'][] = "<br />
         <div class='alert alert-danger'>
           <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
-          <p style='text-align: center;'>veuilliez saisir un nom d'utilisateur</p>
+          <p style='text-align: center;'>veuilliez saisir votre mot de passe </p>
         </div>";
   }
-  else if(strlen($mdp) == "")
+
+  else if($mdp != $unUtilisateur['mdpClient']) //sinon si le mot de passe tapé ne correspond pas au mdp de la base
   {
-    echo"<br />
-        <div class='alert alert-danger'>
-          <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
-          <p style='text-align: center;'>veuilliez saisir un email</p>
-        </div>";
+    $tableau['mdp'][] = "<br />
+      <div class='alert alert-danger'>
+        <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
+        <p style='text-align: center;'> Mot de passe invalide </p>
+      </div>";
   }
-  else
+
+// -------- Partie aucune erreurs ou plusieurs erreurs ----------
+
+  if(count($tableau) == 0) //si aucune erreurs trouvé
   {
-    $connexion = new affichageResto("localhost", "restline", "root", "");
 
-    $where = array(
-        "emailClient" => $email,
-        "mdpClient" => $mdp
-      );
+    $_SESSION['email'] = $email;
+    $_SESSION['mdp'] = $mdp;
+    $_SESSION['user'] = $unUtilisateur['nomClient'];
+    $_SESSION['idClient'] = $unUtilisateur['idClient'];
+    header("location:Espace.php");
+  }
 
-      $champs = array("idClient", "nomClient", "mdpClient", "emailClient");
-      $unUtilisateur = $connexion-> Connexion_client($champs, $where);
-
-        $_SESSION['email'] = $email;
-        $_SESSION['mdp'] = $mdp;
-        $_SESSION['user'] = $unUtilisateur['nomClient'];
-        $_SESSION['idClient'] = $unUtilisateur['idClient'];
-        header("location:Espace.php");
-
-
+  if (count($tableau) > 0) //si les les erreurs sont supérieure à 0
+  {
+    foreach ($tableau as $champEnErreur => $erreursDuChamp)
+    {
+      foreach ($erreursDuChamp as $erreur)
+      {
+        echo $erreur;
+      }
+    }
   }
 }
  ?>
 
-<hr>
+ <!-- footer -->
+ <?php include("Include_code/footer.php"); ?>
 
-<!-- Footer -->
-<footer>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-            <p>Copyright &copy; Your Website 2014</p>
-        </div>
-    </div>
-</footer>
 
 
 </div>

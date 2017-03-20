@@ -21,6 +21,7 @@ echo
 		<li class='divider'></li>
 		<li><a href=Espace.php> Espace </a></li>
 		<li><a href='Formulaire_Reserver.php'> Reserver </a></li>
+		<li><a href='Disponibilite_place.php'> Places Disponibles </a></li>
 		<li class='divider'></li>
 		<form method=post action='Deconnection.php'>
 		<li><button id=btndec type=submit name=sd class='btn btn-danger dropdown-toggle'>Se deconnecter </button></li>

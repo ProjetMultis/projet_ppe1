@@ -53,7 +53,7 @@
 
 //tableaux Menu
   echo "
-  <table class=table>
+  <table class='table table-bordered table-striped'>
     <thead>
       <tr class=success>
         <th> Ingredients du Menu (composition)</th>

@@ -9,7 +9,7 @@ echo "
           <div class=form-group>
           <div class=input-group>
             <span class='input-group-addon' ><div class='glyphicon glyphicon-user'></div></span>
-            <input id=textinput name=email placeholder='Email Utilisateur' class='form-control input-md' type=email />
+            <input id=textinput name=email placeholder='Email Utilisateur' class='form-control input-md' type=text />
           </div>
           </div>
         </div>

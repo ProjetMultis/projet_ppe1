@@ -12,7 +12,7 @@ foreach($resultats as $unResultat)
         <h1>".$unResultat['nomResto']."</h1>".
         //premier tableau
         "
-        <table class=table>
+        <table class='table table-striped'>
           <thead>
             <tr class=success>
               <th> Type de restaurant : </th>
@@ -32,7 +32,7 @@ foreach($resultats as $unResultat)
           </table>"
           .//deuxieme tableau
           "
-          <table class=table>
+          <table class='table table-striped'>
             <thead>
               <tr class=success>
                 <th> Telephone du restaurant : </th>

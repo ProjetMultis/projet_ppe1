@@ -21,6 +21,11 @@ session_start();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <!-- jquery et nprogress -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="nprogress/nprogress.js"></script>
+  <link href="nprogress/nprogress.css" rel="stylesheet">
+
 </head>
 <body>
 <div class="page">
@@ -46,8 +51,8 @@ include("MVC_PHP/Controleur/Controleur_site.php");
 
 
 </div>
-</body>
-<script>
 
-</script>
+<?php include("Include_code/bar_chargement.php"); ?>
+
+</body>
 </html>

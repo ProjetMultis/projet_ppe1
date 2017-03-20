@@ -13,6 +13,8 @@ echo"<fieldset>
     <li class='divider'></li>
     <li><a href=Nouscontacter.php> Nous contacter</a></li>
     <li><a href=Espace.php> Espace </a></li>
+    <li><a href='mesReservation.php'> Mes Réservations </a></li>
+    <li><a href='Disponibilite_place.php'> Places Disponibles </a></li>
     <li class='divider'></li>
     <form method=post action='Deconnection.php'>
     <li><button id=btndec type=submit name=sd class='btn btn-danger dropdown-toggle'>Se deconnecter </button></li>
@@ -21,38 +23,53 @@ echo"<fieldset>
 </div>
     ";
 
-foreach ($resultats as $Reservation)
-{
+
   echo"
-  <form method=post action='Formulaire_Reserver.php'>
-  <table class=table>
+  <div class='table-responsive'>
+  <div class='col-lg-12' >
+  <table class='table table-bordered table-strip'>
     <thead>
       <tr class=success>
-        <th> Nom du restaurant : </th>
-        <th> Nombre de table disponible : </th>
-        <th> Telephone : </th>
-        <th> Heure d'ouverture du restaurant : </th>
-        <th> Heure de fermeture du restaurant : </th>
-        <th> Nombre de personne : </th>
-        <th> Réserver : </th>
+        <th> Nom du restaurant  </th>
+        <th> Nombre de table disponible  </th>
+        <th> Telephone  </th>
+        <th> Heure d'ouverture  </th>
+        <th> Heure de fermeture  </th>
+        <th> Date de la Reservation  </th>
+        <th> Nombre de personne</th>
+        <th> Réserver  </th>
 
       </tr>
     </thead>
-    <tbody>
-      <tr>
+    <tbody>";
+
+    foreach ($resultats as $Reservation)
+    {
+      echo"
+       <form method=post action='Formulaire_Reserver.php'>
+      <tr style='text-align: center;'>
         <td> ".$Reservation['nomResto']." </td>
         <td> ".$Reservation['nbTables']." </td>
         <td> ".$Reservation['telResto']." </td>
         <td> ".$Reservation['heureOuv']." </td>
         <td>".$Reservation['heureFer']." </td>
-        <td><input type=number name=nbpers placeholder='Nombre de personne' /></td>
-        <td><input type=hidden name=idR value=". $Reservation['idResto'] ." /><input type=submit name=erg class='btn btn-success btn-sm btn-blockname' id=rbt value='Energistrer Reservation'></td>
+        <td><input type=date style='cursor: pointer' onclick='new calendar(this);'placeholder='Date de la reservation' name='dr' id='input_".$Reservation['idResto']."' />
+        </td>
+        <td><input type=number placeholder='Nombre de personne' name='nbpers'  id='input1_".$Reservation['idResto']."'/></td>
+        <td><input type='hidden' id='input2_".$Reservation['idResto']."' name='idR' value='".$Reservation['idResto']."'/><button  name='erg' class='btn btn-success btn-sm btn-blockname' id='submit_".$Reservation['idResto']."'  onclick='Verifier_formulaire (this.form)' ><span class='glyphicon  glyphicon-calendar' ></span> Enregistrer Reservation </button></td>
       </tr>
+      </form>
+      ";
+  
+   }
+
+    echo"
     </tbody>
     </table>
-    </form>";
+    </div>
+    </div>";
 
-}
 
 
  ?>
+

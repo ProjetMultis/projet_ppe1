@@ -14,6 +14,8 @@ echo"
     <li class='divider'></li>
     <li><a href=Nouscontacter.php> Nous contacter</a></li>
     <li><a href=Espace.php> Espace </a></li>
+    <li><a href='Formulaire_Reserver.php'> Réserver </a></li>
+    <li><a href='mesReservation.php'> Mes Réservations </a></li>
     <li class='divider'></li>
   <form method=post action='Deconnection.php'>
     <li><button id=btndec type=submit name=sd class='btn btn-danger dropdown-toggle'>Se deconnecter </button></li>

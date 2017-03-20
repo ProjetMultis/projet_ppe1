@@ -4,11 +4,11 @@
 <head> <!-- t�te de page -->
 
 
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html;" charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--concerne IE-->
     <meta name="viewport" content="width=device-width, initial-scale=1"> <!--concerne portable-->
 
-    <title> Votre espace de reservation </title>
+    <title> Mes Reservations </title>
 
     <link href="bootstrap3/css/bootstrap.css" rel="stylesheet">
     <link href="bootstrap3/css/personalisation_aprecus.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="full-slider/css/full-slider.css" rel="stylesheet">
 
-    <!-- jquery et nprogress -->
+    <!-- jquery et nprogress(bar youtube en haut de la page) -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="nprogress/nprogress.js"></script>
     <link href="nprogress/nprogress.css" rel="stylesheet">
@@ -31,38 +31,24 @@
 <!-- Menu -->
 <?php include("Include_code/Navbar_co.php"); ?>
 
-<!-- Affichage espace -->
+<!-- Affichage Tableaux mes reservations -->
 <div class="container">
-<?php
-include("MVC_PHP/Controleur/Controleur_site.php");
-$connexion = new affichageResto("localhost", "restline", "root", "");
+  <?php
 
-if(isset($_SESSION['user']) || $_SESSIOn['mdp'])
-{
-  include("MVC_PHP/Vues/Vues_Espace.php");
+  include("MVC_PHP/Controleur/Controleur_site.php");
 
-  if(isset($_POST['dec']))
-  {
-    $connexion-> deconnection();
-    header('location:Reservation.php');
-  }
-  if(isset($_POST['fr']))
-  {
-    header('location:Formulaire_Reserver.php');
-  }
-  if(isset($_POST['mr']))
-  {
-    header('location:mesReservation.php');
-  }
-  if(isset($_POST['vpr']))
-  {
-    header('location:Disponibilite_place.php');
-  }
-}
+  $Controleur = new affichageResto("localhost", "restline", "root", "");
 
+  $where = array(
+    "idClient" => $_SESSION['idClient']
+  );
 
- ?>
+  $champs = array("date_heure_Reservation", "nbPersonnes", "statut");
 
+  $unResultat = $Controleur-> AffichageMaReservation($champs, $where);
+  include("MVC_PHP/Vues/Vues_mesReservation.php");
+
+  ?>
 </div>
 
 <!-- footer -->

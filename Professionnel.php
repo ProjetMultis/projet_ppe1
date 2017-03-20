@@ -17,6 +17,11 @@
     <link href="full-slider/css/full-slider.css" rel="stylesheet">
     <script src="http://fonts.googleapis.com/css?family=Roboto:400"></script>
 
+    <!-- jquery et nprogress -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="nprogress/nprogress.js"></script>
+  <link href="nprogress/nprogress.css" rel="stylesheet">
+
 </head>
 <body>
 <div class="page">
@@ -36,209 +41,52 @@
 
   if(isset($_POST['envoyer']))
   {
-    $nom = $_POST['nom'];
 
-    if(strlen($nom) == 0)
-      {
-        $tableau['nom'][] = "<br />
-            <div class='alert alert-danger'>
-              <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
-              <p style='text-align: center;'>noms obligatoire</p>
-            </div>";
-      }
-
-    else if($nom != is_string($nom))
-      {
-        $tableau['nom'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Le nom n'est pas au bon format</p>
-              </div>";
-      }
-
-    $prenomContact = $_POST['pc'];
-
-    if(strlen($prenomContact) == 0)
-      {
-        $tableau['pc'][] = "<br />
-            <div class='alert alert-danger'>
-              <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
-              <p style='text-align: center;'>prenoms du contact obligatoire</p>
-            </div>";
-      }
-
-    else if($prenomContact != is_string($prenomContact))
-      {
-        $tableau['pc'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'> Le nom du contact n'est pas au bon format </p>
-              </div>";
-      }
-
-    $nomContact = $_POST['nc'];
-
-    if(strlen($nomContact) == 0)
-      {
-        $tableau['nc'][] = "<br />
-            <div class='alert alert-danger'>
-              <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
-              <p style='text-align: center;'>noms du contact obligatoire</p>
-            </div>";
-      }
-
-    else if($nomContact != is_string($nomContact))
-      {
-        $tableau['nc'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Le nom du contact  n'est pas au bon format</p>
-              </div>";
-      }
-
-    $Siret = $_POST['ns'];
-
-    if(strlen($Siret) == 0)
-      {
-        $tableau['ns'][] = "<br />
-            <div class='alert alert-danger'>
-              <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
-              <p style='text-align: center;'>Le Siret est obligatoire</p>
-            </div>";
-      }
-
-    else if(is_integer($Siret))
-      {
-        $tableau['ns'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Le siret  n'est pas au bon format</p>
-              </div>";
-      }
-
-    $email = $_POST['mail'];
-
-    if(strlen($email) == 0)
-      {
-        $tableau['mail'][] = "<br />
-            <div class='alert alert-danger'>
-              <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-              <p style='text-align: center;'>Email obligatoire</p>
-            </div>";
-      }
-
-    else if(!preg_match("#^([a-zA-Z0-9._-]*)@([a-zA-Z0-9._-]*)\.([a-zA-Z]*)$#", $email))
-        {
-          $tableau['mail'][] = "<br />
-                <div class='alert alert-danger'>
-                  <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                  <p style='text-align: center;'>Email pas au bon format</p>
-                </div>";
-        }
-
-    $Telephone = $_POST['tel'];
-
-    if(is_integer($Telephone))
-        {
-          $tableau['tel'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Format du telephone invalide</p>
-              </div>";
-        }
-
-    $Rue = $_POST['Rue'];
-    $ville = $_POST['ville'];
-    $code_postal = $_POST['code_postal'];
-
-    if(is_integer($ville))
-        {
-          $tableau['code_postal'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Format de la ville invalide</p>
-              </div>";
-        }
-
-    if(is_integer($code_postal))
-        {
-          $tableau['code_postal'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Format du code postal invalide</p>
-              </div>";
-        }
-
-    else if(strlen($code_postal) != 5 && $code_postal > 0)
-        {
-          $tableau['code_postal'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Code postal invalide</p>
-              </div>";
-        }
-
-    $auteur = $_POST['nom'];
+    $auteur = $_SESSION['user'];
     $sujet = $_POST['sujet'];
     $message = $_POST['message'];
 
-    if($sujet != is_string($sujet) && $sujet > 0)
+    if(strlen($sujet) == 0)
     {
-      $tableau['sujet'][] = "<br />
+       $tableau['sujet'][] = "<br />
           <div class='alert alert-danger'>
-            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-            <p style='text-align: center;'>Format sur le champ sujet invalide</p>
+            <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'> Sujet Obligatoire </p>
           </div>";
     }
 
-    else if($sujet > 50)
+    else if(strlen($sujet) > 50)
     {
       $tableau['sujet'][] = "<br />
           <div class='alert alert-danger'>
-            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+            <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
             <p style='text-align: center;'> Sujet trop long </p>
           </div>";
     }
 
-    if($message != is_string($message) && $sujet > 0)
+
+    if(strlen($message) == 0)
     {
-      $tableau['message'][] = "<br />
+       $tableau['message'][] = "
           <div class='alert alert-danger'>
-            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-            <p style='text-align: center;'>Format sur le champ Message invalide</p>
+            <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'> Message Obligatoire </p>
           </div>";
     }
-
-    else if($message > 100)
+    else if(strlen($message) > 100)
     {
-      $tableau['message'][] = "<br />
+      $tableau['message'][] = "
           <div class='alert alert-danger'>
-            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+            <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
             <p style='text-align: center;'> Message trop long </p>
           </div>";
     }
 
     if(count($tableau) == 0)
     {
+
+
       $tab = array(
-        "nomClient" => $nom,
-        "prenomContact" => $prenomContact,
-        "nomContact" => $nomContact,
-        "numSiret" => $Siret,
-        "emailClient" => $email,
-        "numTelClient" => $Telephone,
-        "rue" => $Rue,
-        "ville" => $ville,
-        "cp" => $code_postal,
-        "mdpClient" => $_SESSION['mdp']
-
-      );
-
-      $connexion->insererProfessionnel($tab);
-
-
-
-      $tab2 = array(
         "auteurCom" => $auteur,
         "sujetCom" => $sujet,
         "texteCom" => $message,
@@ -247,9 +95,13 @@
       );
 
 
-      $connexion->insererMessage($tab2);
+      $connexion->insererMessage($tab);
 
-      $message = "<p>donnees inserer</p>";
+        echo"<br />
+          <div class='alert alert-success'>
+            <a href='Professionnel.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'> Message Envoyer : <a href='Nouscontacter.php' id=mI> Aller aux choix du statut </a></p>
+          </div>";
     }
 
     if (count($tableau) > 0)
@@ -272,8 +124,8 @@
 
 
 </div>
-</body>
-<script>
 
-</script>
+<?php include("Include_code/bar_chargement.php"); ?>
+
+</body>
 </html>

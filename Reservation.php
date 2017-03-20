@@ -18,6 +18,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <!-- jquery et nprogress -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="nprogress/nprogress.js"></script>
+  <link href="nprogress/nprogress.css" rel="stylesheet">
 
 </head>
 <body>
@@ -38,6 +42,7 @@ $connexion = new affichageResto("localhost", "restline", "root", "");
 
 if(isset($_POST['envoyer']))
 {
+  sleep(1); //pause 1 seconde
   //variable enregistrement clavier
   $email = htmlspecialchars($_POST['email']);
   $mdp = htmlspecialchars($_POST['mdp']);
@@ -62,7 +67,7 @@ if(isset($_POST['envoyer']))
   //verification champs email
   if(strlen($email) == 0 ) //si pas d'email tapé
   {
-    $tableau['email'][] = "<br />
+    $tableau['email'][] = "
         <div class='alert alert-danger'>
           <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
           <p style='text-align: center;'>veuilliez saisir votre email </p>
@@ -70,7 +75,7 @@ if(isset($_POST['envoyer']))
   }
   else if(!preg_match("#^([a-zA-Z0-9._-]*)@([a-zA-Z0-9._-]*)\.([a-zA-Z]*)$#", $email)) //sinon si email pas au bon format
   {
-    $tableau['email'][] = "<br />
+    $tableau['email'][] = "
         <div class='alert alert-danger'>
             <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
             <p style='text-align: center;'>Email pas au bon format</p>
@@ -81,7 +86,7 @@ if(isset($_POST['envoyer']))
 
   if(strlen($mdp) == 0) //si aucun mot de passe tapé
   {
-    $tableau['mdp'][] = "<br />
+    $tableau['mdp'][] = "
         <div class='alert alert-danger'>
           <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
           <p style='text-align: center;'>veuilliez saisir votre mot de passe </p>
@@ -90,7 +95,7 @@ if(isset($_POST['envoyer']))
 
   else if($mdp != $unUtilisateur['mdpClient']) //sinon si le mot de passe tapé ne correspond pas au mdp de la base
   {
-    $tableau['mdp'][] = "<br />
+    $tableau['mdp'][] = "
       <div class='alert alert-danger'>
         <a href='Reservation.php' class=close data-dismiss=alert>&times;</a>
         <p style='text-align: center;'> Mot de passe invalide </p>
@@ -101,7 +106,6 @@ if(isset($_POST['envoyer']))
 
   if(count($tableau) == 0) //si aucune erreurs trouvé
   {
-
     $_SESSION['email'] = $email;
     $_SESSION['mdp'] = $mdp;
     $_SESSION['user'] = $unUtilisateur['nomClient'];
@@ -128,5 +132,9 @@ if(isset($_POST['envoyer']))
 
 
 </div>
+
+<script src="bootstrap3/js/bootstrap.js"></script>
+<?php include("Include_code/bar_chargement.php"); ?>
+
 </body>
 </html>

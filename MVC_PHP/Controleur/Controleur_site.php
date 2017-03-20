@@ -72,6 +72,14 @@ class affichageResto
     return $resultats;
   }
 
+  public function AffichageMaReservation($champs, $where) //methode pour afficher plusieurs resultats avec le where
+  {
+    $this->ModeleAffichage-> renseigner("reservation");
+    $unResultat = $this->ModeleAffichage-> selectWheretoutRes($champs, $where);
+
+    return $unResultat;
+  }
+
   //------ Connexion utilisateur, deco etc ---------
 
   public function Connexion_client($champs, $where) //methode pour se connecter à l'espace membre
@@ -103,7 +111,7 @@ class affichageResto
     return $this->ModeleAffichage-> update($table, $where);
   }
 
-  public function DateHeureReservation()
+  public function DateHeureReservation() //Controle pour obtenir date et heure d'aujourd'hui
   {
     $dateheure = $this->ModeleAffichage-> obtenirDateHeure();
     return $dateheure;
@@ -113,6 +121,21 @@ class affichageResto
   {
     $colonne = $this->ModeleAffichage-> ligneColonne($ligne);
     return $colonne;
+  }
+  public function retournerdateFrRes($maDate) //controler l'affichage de la date fr pour les reservations
+  {
+    $fr = $this->ModeleAffichage-> dateFR($maDate);
+    return $fr;
+  }
+  public function mettreAccentSatut($valeur) //controle pour afficher mot avec accent en UTF8 pour les réservations
+  {
+    $accent = $this->ModeleAffichage-> encoderUTF($valeur);
+    return $accent;
+  }
+  public function retournerdateEn($maDate)
+  {
+    $En = $this->ModeleAffichage-> dateEn($maDate);
+    return $En;
   }
 
 //------ Insertion Base ------

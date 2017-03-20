@@ -120,7 +120,7 @@ echo"<fieldset>
 
 
   <label class='col-md-4 control-label' for=singlebutton></label>
-    <button id=ins2 name=engip class='btn btn-primary'> Inscription </button>
+    <button id=ins2 name=engip class='btn btn-primary' ><span class='glyphicon glyphicon-briefcase' ></span> Inscription </button>
 
 
 

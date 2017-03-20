@@ -6,7 +6,7 @@
 
     public function __construct($serveur, $bdd, $user, $mdp)
     {
-      parent::__construct($serveur, $bdd, $user, $mdp);
+      parent::__construct($serveur, $bdd, $user, $mdp); //héritage modèle
     }
 
     public function unSeulResto($unRestaurant) //méthode pour afficher un seul restaurant
@@ -36,6 +36,8 @@
 
       return $resultats;
     }
+
+
 
   }
 

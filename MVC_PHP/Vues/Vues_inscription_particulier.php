@@ -98,7 +98,7 @@ echo"<fieldset>
 
 
   <label class='col-md-4 control-label' for=singlebutton></label>
-    <input id=ins type=submit name=enrgp class='btn btn-primary' value=Inscription />
+    <button id=ins type=submit name=enrgp class='btn btn-primary' ><span class='glyphicon glyphicon-home' ></span> Inscription </button>
 
 
 

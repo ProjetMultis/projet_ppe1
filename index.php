@@ -16,6 +16,12 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="full-slider/css/full-slider.css" rel="stylesheet">
 
+    <!-- jquery et nprogress -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="nprogress/nprogress.js"></script>
+    <link href="nprogress/nprogress.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -117,6 +123,8 @@
 
 
 <script src="bootstrap3/js/bootstrap.js"></script>
+<?php include("Include_code/bar_chargement.php"); ?>
+
 <script type="text/javascript">
     $(document).ready(function(){
         // Activate carousel

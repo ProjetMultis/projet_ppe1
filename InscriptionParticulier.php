@@ -17,6 +17,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <!-- jquery et nprogress -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="nprogress/nprogress.js"></script>
+    <link href="nprogress/nprogress.css" rel="stylesheet">
+
 
 </head>
 <body>
@@ -98,7 +103,7 @@
 
     $telephone = $_POST['tel'];
 
-    if(is_integer($telephone))
+    if($telephone != is_integer($telephone))
         {
           $tableau['tel'][] = "
               <div class='alert alert-danger'>
@@ -119,7 +124,7 @@
                 <p style='text-align: center;'>Format de la ville invalide</p>
               </div>";
         }
-    if(is_integer($code_postal))
+    if($code_postal != is_integer($code_postal))
         {
           $tableau['code_postal'][] = "
               <div class='alert alert-danger'>
@@ -185,7 +190,7 @@
 
       echo"<br />
           <div class='alert alert-success'>
-            <a href='inscription_compte.php' class=close data-dismiss=alert>&times;</a>
+            <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
             <p style='text-align: center;'>Inscription réussite : <a href='Reservation.php' id=mI> Aller à la page de connexion </a></p>
           </div>";
     }
@@ -208,5 +213,9 @@
 
 
 </div>
+
+<script src="bootstrap3/js/bootstrap.js"></script>
+<?php include("Include_code/bar_chargement.php"); ?>
+
 </body>
 </html>

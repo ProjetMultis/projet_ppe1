@@ -17,6 +17,11 @@
     <link href="full-slider/css/full-slider.css" rel="stylesheet">
     <script src="http://fonts.googleapis.com/css?family=Roboto:400"></script>
 
+    <!-- jquery et nprogress -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="nprogress/nprogress.js"></script>
+  <link href="nprogress/nprogress.css" rel="stylesheet">
+
 </head>
 <body>
 <div class="page">
@@ -38,122 +43,21 @@ if(isset($_POST['envoyer']))
 {
 
 //sauvegarde des données saisie dans des variables
-    $nom = $_POST['nom'];
 
-    if(strlen($nom) == 0)
-      {
-        $tableau['nom'][] = "<br />
-            <div class='alert alert-danger'>
-              <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-              <p style='text-align: center;'>noms obligatoire</p>
-            </div>";
-      }
-
-    else if($nom != is_string($nom))
-      {
-        $tableau['nom'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Le nom n'est pas au bon format</p>
-              </div>";
-      }
-
-    $prenom = $_POST['prenom'];
-
-    if(strlen($prenom) == 0)
-      {
-        $tableau['prenom'][] = "<br />
-            <div class='alert alert-danger'>
-              <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-              <p style='text-align: center;'>prenoms obligatoire</p>
-            </div>";
-      }
-
-    else if($prenom != is_string($prenom))
-      {
-        $tableau['prenom'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Ceci n'est pas une chaine de caractère</p>
-              </div>";
-      }
-
-    $email = $_POST['mail'];
-
-    if(strlen($email) == 0)
-      {
-        $tableau['mail'][] = "<br />
-            <div class='alert alert-danger'>
-              <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-              <p style='text-align: center;'>Email obligatoire</p>
-            </div>";
-      }
-
-    else if(!preg_match("#^([a-zA-Z0-9._-]*)@([a-zA-Z0-9._-]*)\.([a-zA-Z]*)$#", $email))
-        {
-          $tableau['mail'][] = "<br />
-                <div class='alert alert-danger'>
-                  <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                  <p style='text-align: center;'>Email pas au bon format</p>
-                </div>";
-        }
-
-    $Telephone = $_POST['tel'];
-
-    if(is_integer($Telephone))
-        {
-          $tableau['tel'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Format du telephone invalide</p>
-              </div>";
-        }
-
-    $Rue = $_POST['Rue'];
-    $ville = $_POST['ville'];
-    $code_postal = $_POST['code_postal'];
-
-    if(is_integer($ville))
-        {
-          $tableau['code_postal'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='InscriptionParticulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Format de la ville invalide</p>
-              </div>";
-        }
-
-    if(is_integer($code_postal))
-        {
-          $tableau['code_postal'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Format du code postal invalide</p>
-              </div>";
-        }
-
-    else if(strlen($code_postal) != 5 && $code_postal > 0)
-        {
-          $tableau['code_postal'][] = "<br />
-              <div class='alert alert-danger'>
-                <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-                <p style='text-align: center;'>Code postal invalide</p>
-              </div>";
-        }
-
-    $auteur = $_POST['nom'];
+    $auteur =  $_SESSION['user'];
     $sujet = $_POST['sujet'];
     $message = $_POST['message'];
 
-    if($sujet != is_string($sujet) && $sujet > 0)
+    if(strlen($sujet) == 0)
     {
-      $tableau['sujet'][] = "<br />
+       $tableau['sujet'][] = "<br />
           <div class='alert alert-danger'>
             <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-            <p style='text-align: center;'>Format sur le champ sujet invalide</p>
+            <p style='text-align: center;'> Sujet Obligatoire </p>
           </div>";
     }
 
-    else if($sujet > 50)
+    else if(strlen($sujet) > 50)
     {
       $tableau['sujet'][] = "<br />
           <div class='alert alert-danger'>
@@ -162,18 +66,18 @@ if(isset($_POST['envoyer']))
           </div>";
     }
 
-    if($message != is_string($message) && $sujet > 0)
+
+    if(strlen($message) == 0)
     {
-      $tableau['message'][] = "<br />
+       $tableau['message'][] = "
           <div class='alert alert-danger'>
             <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
-            <p style='text-align: center;'>Format sur le champ Message invalide</p>
+            <p style='text-align: center;'> Message Obligatoire </p>
           </div>";
     }
-
-    else if($message > 100)
+    else if(strlen($message) > 100)
     {
-      $tableau['message'][] = "<br />
+      $tableau['message'][] = "
           <div class='alert alert-danger'>
             <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
             <p style='text-align: center;'> Message trop long </p>
@@ -183,21 +87,8 @@ if(isset($_POST['envoyer']))
     if(count($tableau) == 0)
     {
 
+
       $tab = array(
-        //données table particulier
-        "nomClient" => $nom,
-        "prenom" => $prenom,
-        "emailClient" => $email,
-        "numTelClient" => $Telephone,
-        "rue" => $Rue,
-        "ville" => $ville,
-        "cp" => $code_postal,
-        "mdpClient" => $_SESSION['mdp']
-      );
-
-      $connexion->insererParticulier($tab);
-
-      $tab2 = array(
         //données table commentaires
         "auteurCom" => $auteur,
         "sujetCom" => $sujet,
@@ -206,11 +97,13 @@ if(isset($_POST['envoyer']))
       );
 
 
-      $connexion->insererMessage($tab2); //éxécution méthode insererMessage dans le constructeur
+      $connexion-> insererMessage($tab); //éxécution méthode insererMessage dans le constructeur
 
-
-
-      $message = "<p>donnees inserer</p>";
+      echo"<br />
+          <div class='alert alert-success'>
+            <a href='Particulier.php' class=close data-dismiss=alert>&times;</a>
+            <p style='text-align: center;'> Message Envoyer : <a href='Nouscontacter.php' id=mI> Aller aux choix du statut </a></p>
+          </div>";
     }
 
     if (count($tableau) > 0)
@@ -233,8 +126,8 @@ if(isset($_POST['envoyer']))
 
 
 </div>
-</body>
-<script>
 
-</script>
+<?php include("Include_code/bar_chargement.php"); ?>
+
+</body>
 </html>

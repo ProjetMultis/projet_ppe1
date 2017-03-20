@@ -18,6 +18,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
     integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <!-- jquery et nprogress -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="nprogress/nprogress.js"></script>
+    <link href="nprogress/nprogress.css" rel="stylesheet">
+
+    <!-- calendrier -->
+    <script src="bootstrap3/js/calendrier.js"></script>
+    <link href="bootstrap3/css/Calendrier.css" rel="stylesheet">
+   
+   <!-- verfication input -->
+   <script src="bootstrap3/js/Verif_input.js"></script>
+
 </head>
 <body>
 <div class="page">
@@ -38,23 +50,31 @@
 
   if(isset($_POST['erg']))
   {
-      $dateheure = $Controleur-> DateHeureReservation();
+      
+    if(!empty($_POST['dr']) && !empty($_POST['nbpers']))
+    {
+      
+      $date = $_POST['dr'];
+      $dateEn = $Controleur-> retournerdateEn($date);
       $nbPersonne = $_POST['nbpers'];
       $idResto = $_POST['idR'];
 
-      $tab = array(
-
-        "date_heure_Reservation" => $dateheure,
+        $tab = array(
+        "date_heure_Reservation" => $dateEn,
         "nbPersonnes" => $nbPersonne,
         "statut" => "En attente",
         "idResto" => $idResto,
         "idClient" => $_SESSION['idClient']
-
       );
 
       $Controleur-> insertionReservation($tab);
-      echo"insertion reussite";
+      echo "<br />
+              <div class='alert alert-success'>
+                <a href='Formulaire_Reserver.php' class=close data-dismiss=alert>&times;</a>
+                <p style='text-align: center;'> Réservation Éffectué </p>
+              </div>";
 
+      }
   }
 
 
@@ -66,5 +86,8 @@
 
 </div>
 </div>
+
+<?php include("Include_code/bar_chargement.php"); ?>
+
 </body>
 </html>

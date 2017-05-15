@@ -3,12 +3,12 @@
 foreach($resultats as $unResultat)
 {
 //image
-  echo "<div class=col-lg-6 col-md-6 col-sm-6 col-xs-6>
+  echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-6'>
         <div class=thumbnail>
         <img src=".$unResultat['imageResto']."></p></div></div>";
 
   //deux tableaux : le premier  de type restaurant a Nombre de couvert par table, le deuxieme de tel a Heure fermeture
-  echo "<div class=col-lg-6 col-md-6 col-sm-6 col-xs-6>
+  echo "<div class='col-lg-6 col-md-6 col-sm-6 col-xs-6'>
         <h1>".$unResultat['nomResto']."</h1>".
         //premier tableau
         "

@@ -90,7 +90,7 @@ body {
 }
 .navbar-nav
 {
-    margin: auto auto auto 55%;
+  margin: auto auto auto 55%;
 	display: -moz-grid-group;
 	text-align: -moz-center;
 }

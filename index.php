@@ -42,7 +42,7 @@
 
 <!-- Slider -->
 
-        <div class="col-lg-12 col-md-9 col-sm-9 col-xs-9">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
             <div class="row marge-bas">
 
@@ -58,8 +58,8 @@
 
                 <!-- Image pour le slider -->
                 <div class="carousel-inner">
-                    <div class="active item">
-                        <img src="image/la_fourchette2.jpg" alt="...">
+                    <div class="item active">
+                        <img src="image/la_fourchette2.jpg" alt="..." style="width: 100%">
                         <div class="carousel-caption">
                             <h3>Restaurant la Fourchette</h3>
                         </div>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
 
-            </div>
+       
 
             <!-- Controle pour ce diriger sur le slider -->
                         <a class="carousel-control left">
@@ -87,17 +87,24 @@
                         <a class="carousel-control right">
                             <span class="glyphicon glyphicon-chevron-right"></span>
                         </a>
+            
             </div>
             </div>
             </div>
           </div>
-
+          </div>
+          </div>
+          </div>
 
 
         <!-- Article -->
         <div class="container-fluid">
         <div class="row">
-        <h1> __________________ Affichage Top Restaurant _________________ </h1>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+            <h1 style="text-align:center;"> Affichage Top Restaurant </h1>
+            </div>
+        </div> 
       <br />
         <?php
         include("MVC_PHP/Controleur/Controleur_site.php");
@@ -113,8 +120,8 @@
        </div>
      </div>
 
-    </div>
-    </div>
+ 
+ 
 
 <!-- footer -->
 <?php include("Include_code/footer.php"); ?>

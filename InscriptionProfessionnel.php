@@ -53,7 +53,7 @@
             </div>";
       }
 
-    else if($nom != is_string($nom))
+    else if($nom != ctype_alpha($nom))
       {
         $tableau['nom'][] = "
               <div class='alert alert-danger'>
@@ -73,7 +73,7 @@
             </div>";
       }
 
-    else if($ns != is_string($ns))
+    else if($ns != ctype_alnum($ns))
       {
         $tableau['ns'][] = "
               <div class='alert alert-danger'>
@@ -93,7 +93,7 @@
               </div>";
         }
 
-      else if($nomContact != is_string($nomContact))
+      else if($nomContact != ctype_alpha($nomContact))
         {
           $tableau['nc'][] = "
                 <div class='alert alert-danger'>
@@ -113,7 +113,7 @@
                 </div>";
           }
 
-      else if($prenomContact != is_string($prenomContact))
+      else if($prenomContact != ctype_alpha($prenomContact))
           {
             $tableau['np'][] = "
                   <div class='alert alert-danger'>
@@ -146,7 +146,7 @@
 
     $telephone = $_POST['tel'];
 
-    if($telephone != is_integer($telephone))
+    if($telephone != ctype_digit($telephone))
         {
           $tableau['tel'][] = "
               <div class='alert alert-danger'>
@@ -159,7 +159,7 @@
     $ville = $_POST['ville'];
     $code_postal = $_POST['code_postal'];
 
-    if(is_integer($ville))
+    if($ville != ctype_alpha($ville))
         {
           $tableau['ville'][] = "
               <div class='alert alert-danger'>
@@ -168,7 +168,7 @@
               </div>";
         }
 
-    if($code_postal != is_integer($code_postal))
+    if($code_postal != ctype_digit($code_postal))
         {
           $tableau['code_postal'][] = "
               <div class='alert alert-danger'>

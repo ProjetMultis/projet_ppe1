@@ -52,7 +52,7 @@
             </div>";
       }
 
-    else if($nom != is_string($nom))
+    else if($nom != ctype_alpha($nom))
       {
         $tableau['nom'][] = "
               <div class='alert alert-danger'>
@@ -72,7 +72,7 @@
             </div>";
       }
 
-    else if($prenom != is_string($prenom))
+    else if($prenom != ctype_alpha($prenom))
       {
         $tableau['prenom'][] = "
               <div class='alert alert-danger'>
@@ -103,7 +103,7 @@
 
     $telephone = $_POST['tel'];
 
-    if($telephone != is_integer($telephone))
+    if($telephone != ctype_digit($telephone))
         {
           $tableau['tel'][] = "
               <div class='alert alert-danger'>
@@ -116,7 +116,7 @@
     $ville = $_POST['ville'];
     $code_postal = $_POST['code_postal'];
 
-    if(is_integer($ville))
+    if($ville != ctype_alpha($ville))
         {
           $tableau['ville'][] = "
               <div class='alert alert-danger'>
@@ -124,7 +124,7 @@
                 <p style='text-align: center;'>Format de la ville invalide</p>
               </div>";
         }
-    if($code_postal != is_integer($code_postal))
+    if($code_postal != ctype_digit($code_postal))
         {
           $tableau['code_postal'][] = "
               <div class='alert alert-danger'>

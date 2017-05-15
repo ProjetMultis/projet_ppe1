@@ -7,9 +7,9 @@
           </div>
         </div>
 
-        <div class=col-sm-12 col-md-12 col-lg-12 col-xs-12>
+        <div class='col-sm-12 col-md-12 col-lg-12 col-xs-12'>
           <div class='row marge-bas'>
-            <div class=col-lg-12 col-xs-12 col-md-12 col-sm-12>
+            <div class='col-lg-12 col-xs-12 col-md-12 col-sm-12'>
               <div class=bs-example>
                 <div id=myCarousel class='carousel slide' data-ride=carousel data-interval=5000>
                 <!-- Indicateur -->
@@ -38,8 +38,7 @@
                           </div>
                       </div>
                   </div>
-                </div>
-              </div>
+               
               <!-- Controle pour ce diriger sur le slider -->
                           <a class='carousel-control left'>
                               <span class='glyphicon glyphicon-chevron-left'></span>
@@ -47,6 +46,8 @@
                           <a class='carousel-control right'>
                               <span class='glyphicon glyphicon-chevron-right'></span>
                           </a>
+             </div>
+              </div>
             </div>
           </div>
         </div>";

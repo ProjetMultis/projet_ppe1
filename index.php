@@ -102,7 +102,7 @@
         <div class="row">
         <div class="panel panel-success">
             <div class="panel-heading">
-            <h1 style="text-align:center;"> Affichage Top Restaurant </h1>
+            <h1 style="text-align:center;"> Top Restaurant </h1>
             </div>
         </div> 
       <br />
